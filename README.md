@@ -2,7 +2,7 @@
 
 ## Setup for development
 - Install Docker 
-    Link for the installation guide: [Link](https://do8cs.docker.com/desktop/windows/install/)
+    Link for the installation guide: [Link](https://docs.docker.com/desktop/windows/install/)
 
 - Once docker is running go to the directory with the *docker-compose.yml* file.
 
