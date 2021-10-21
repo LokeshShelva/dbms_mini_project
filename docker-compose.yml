@@ -5,10 +5,9 @@ services:
     image: mysql:latest
     container_name: dev_mysql
     environment:
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - dbdata:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -18,7 +17,9 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_ARBITRARY: 1
+      PMA_ARBITRARY: 1  
     restart: always
     ports:
       - 8081:80
+volumes:
+  dbdata:
