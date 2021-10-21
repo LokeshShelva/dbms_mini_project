@@ -4,8 +4,8 @@
   "description": "- Install Docker \r     Link for the installation guide: [Link](https://docs.docker.com/desktop/windows/install/)",
   "main": "app.js",
   "scripts": {
-    "client-dev": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "client": "webpack --mode development --watch",
+    "client-dev": "webpack-dev-server --mode development --hot",
+    "build": "webpack --config webpack.prod.js",
     "server": "nodemon src/server/app.js",
     "start": "node src/server/app.js"
   },
