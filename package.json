@@ -6,7 +6,8 @@
   "scripts": {
     "client-dev": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "client": "webpack --mode development --watch",
-    "server": "nodemon src/server/app.js"
+    "server": "nodemon src/server/app.js",
+    "start": "node src/server/app.js"
   },
   "repository": {
     "type": "git",
