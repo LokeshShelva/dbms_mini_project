@@ -14,11 +14,6 @@ app.use(cors())
 
 app.use(express.static("dist"));
 
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../client/index.html'))
-})
-
 app.get('/api', (req, res) => {
     res.setHeader('Content-type', 'application/json')
     res.json({
