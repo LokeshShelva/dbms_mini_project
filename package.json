@@ -7,7 +7,9 @@
     "client-dev": "webpack-dev-server --mode development --hot",
     "build": "webpack --config webpack.prod.js",
     "server": "nodemon src/server/app.js",
-    "start": "node src/server/app.js"
+    "start": "node src/server/app.js",
+    "migrate": "npx knex migrate:latest",
+    "rollback": "npx knex migrate:rollback"
   },
   "repository": {
     "type": "git",
