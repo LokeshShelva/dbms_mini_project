@@ -22,6 +22,12 @@ function addRef(table, tableName, notNullable = true, columnName = '') {
 
 exports.up = async (knex) => {
     await Promise.all([
+        knex.schema.createTable(tableNames.user, (table) => {
+            table.increments().notNullable();
+            table.string('email', 128).notNullable().unique();
+            table.string('password').notNullable();
+            table.string('role', 50).notNullable();
+        }),
         knex.schema.createTable(tableNames.grade, (table) => {
             table.increments().notNullable();
             table.string('grade', 2).notNullable().unique();
@@ -35,11 +41,11 @@ exports.up = async (knex) => {
         }),
         knex.schema.createTable(tableNames.section, (table) => {
             table.increments().notNullable();
-            table.string('grade', 2).notNullable();
+            table.string('section', 2).notNullable();
         }),
         knex.schema.createTable(tableNames.role, (table) => {
             table.increments().notNullable();
-            table.string('role', 10).notNullable();
+            table.string('role', 20).notNullable();
         }),
         knex.schema.createTable(tableNames.subject, (table) => {
             table.increments().notNullable();

@@ -1,4 +1,5 @@
 const tableNames = {
+    user: 'User',
     grade: 'Grade',
     address: 'Address',
     section: 'Section',
@@ -30,6 +31,7 @@ const dropOrder = [
     'Section',
     'Address',
     'Grade',
+    'User'
 ]
 
 module.exports = {
