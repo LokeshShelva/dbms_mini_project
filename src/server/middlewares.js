@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 
 const errorHandler = (error, req, res, next) => {
     const statusCode =
@@ -16,7 +17,28 @@ const notFound = (req, res, next) => {
     next(error);
 }
 
+const jwtAuthMiddleware = (req, res, next) => {
+    const header = req.headers['authorization'];
+    if (!header) {
+        res.status(403);
+        res.json({
+            message: "Unauthorized access"
+        })
+    }
+
+    const token = header.split(' ')[1];
+
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+        if (err) {
+            res.status(403);
+            next(err);
+        }
+        next();
+    })
+}
+
 module.exports = {
     errorHandler,
-    notFound
+    notFound,
+    jwtAuthMiddleware
 }

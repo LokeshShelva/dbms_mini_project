@@ -7,8 +7,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const compression = require('compression');
 
-const authRoute = require('./auth/auth.route');
-const { errorHandler, notFound } = require('./middlewares');
+const authRoute = require('./api/auth/auth.route');
+const { errorHandler, notFound, jwtAuthMiddleware } = require('./middlewares');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +21,10 @@ app.use(express.json());
 
 app.use(express.static("dist"));
 
+app.use('/auth', authRoute);
+
+app.use(jwtAuthMiddleware);
+
 app.get('/api', (req, res) => {
     res.setHeader('Content-type', 'application/json')
     res.json({
@@ -28,7 +32,6 @@ app.get('/api', (req, res) => {
     })
 })
 
-app.use('/auth', authRoute);
 
 app.use(notFound);
 app.use(errorHandler);
