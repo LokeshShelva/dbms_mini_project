@@ -1,0 +1,13 @@
+[] Teacher adding mark of their subject
+[] Principal viewing all student marks
+[] Students view theri mark
+
+[] Class teacher adding attendance of Class
+[] Pricipal viewing attendance of all Class
+
+[] View fees pending
+[] View fee history if available
+[] view salary history and pending
+
+[] view all faculty + details
+[] view all stuednts + filter 

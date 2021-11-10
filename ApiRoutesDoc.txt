@@ -1,0 +1,37 @@
+This is the documentation for the API routes and params.
+
+NO HEADERS
+
+/auth
+    /signup - POST
+        Request:
+            Body:
+                Type: json
+                Scheme: email, password, role
+        
+        Responce:
+            on success: {message: 'Successfully created user'}
+            on error: {errors: []} - array of all errors
+    
+    /login - POST
+        Request:
+            Body:
+               Type: json
+               Scheme: email, password
+
+        Responce:
+            on success: {token} - JWT token to be saved locally
+            on error: {errors: []} - array of all errors
+
+
+HEADERS - Authorization: 'bearer USER_JWT_TOKEN_HERE'
+
+/faculty
+    /:role - GET
+        Responce:
+            Return a array of all the faculty with the given role.
+            Current roles: pricipal, teaching, non-teaching
+
+        Query Params:
+            ?small=true
+                Returns a array of the faculty with the given role but returns fewer details.

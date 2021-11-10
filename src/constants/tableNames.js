@@ -13,11 +13,13 @@ const tableNames = {
     student: 'Student',
     feePaidDetail: 'Fee_paid_detail',
     attendance: 'Attendance',
+    exam: 'Exam',
     result: 'Result',
 }
 
 const dropOrder = [
     'Result',
+    'Exam',
     'Attendance',
     'Fee_paid_detail',
     'Student',

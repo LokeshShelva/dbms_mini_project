@@ -32,8 +32,10 @@ const jwtAuthMiddleware = (req, res, next) => {
         if (err) {
             res.status(403);
             next(err);
+            return;
         }
         next();
+        return;
     })
 }
 

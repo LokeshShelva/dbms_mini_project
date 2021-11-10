@@ -81,6 +81,7 @@ exports.up = async (knex) => {
 
     await knex.schema.createTable(tableNames.class, (table) => {
         table.increments().notNullable();
+        table.string('class', 3).notNullable();
         addRef(table, tableNames.section);
         addRef(table, tableNames.faculty, true, 'class_teacher');
     });
@@ -120,10 +121,16 @@ exports.up = async (knex) => {
         addRef(table, tableNames.class);
     });
 
+    await knex.schema.createTable(tableNames.exam, (table) => {
+        table.increments().notNullable();
+        table.string('exam', 20).notNullable();
+    })
+
     await knex.schema.createTable(tableNames.result, (table) => {
         table.increments().notNullable();
         table.integer('academic_year').notNullable();
         table.integer('score').notNullable();
+        addRef(table, tableNames.exam);
         addRef(table, tableNames.student);
         addRef(table, tableNames.class);
         addRef(table, tableNames.subject);
