@@ -24,6 +24,7 @@ const jwtAuthMiddleware = (req, res, next) => {
         res.json({
             message: "Unauthorized access"
         })
+        return;
     }
 
     const token = header.split(' ')[1];
@@ -32,10 +33,9 @@ const jwtAuthMiddleware = (req, res, next) => {
         if (err) {
             res.status(403);
             next(err);
-            return;
+        } else {
+            next();
         }
-        next();
-        return;
     })
 }
 

@@ -5,7 +5,7 @@ function Home() {
     const [data, setData] = React.useState([]);
 
     const fetchData = () => {
-        axios.get('/faculty/teaching', {
+        axios.get('http://localhost:5000/api/faculty/teaching', {
             headers: {
                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzU1MjMyMDYsImV4cCI6MTYzODExNTIwNn0.JSedX7alhX53j5LYtrus_AfmY-Xc0ktikFRXGdkltig',
             }

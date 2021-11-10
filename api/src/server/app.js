@@ -26,10 +26,10 @@ app.use(express.static("dist"));
 
 app.use('/auth', authRoute);
 
-app.use(jwtAuthMiddleware);
+app.use('/api', jwtAuthMiddleware);
 
-app.use('/student', studentRoute);
-app.use('/faculty', facultyRoute);
+app.use('/api/student', studentRoute);
+app.use('/api/faculty', facultyRoute);
 
 app.get('/api', (req, res) => {
     res.setHeader('Content-type', 'application/json')
