@@ -25,15 +25,15 @@ const dropOrder = [
     'Student',
     'Teaching_class_subject',
     'Class',
-    'Salary_paid_detail',
-    'Faculty',
-    'Parent',
-    'Subject',
-    'Role',
-    'Section',
-    'Address',
-    'Grade',
-    'User'
+    'Salary_paid_detail',//
+    'Faculty',//
+    'Parent',//
+    'Subject',//
+    'Role',//
+    'Section',//
+    'Address',//
+    'Grade',//
+    'User' //
 ]
 
 module.exports = {
