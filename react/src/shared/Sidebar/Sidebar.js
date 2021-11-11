@@ -16,7 +16,7 @@ function Sidebar({ role }) {
             (<div className="sidebar-container">
                 <div className="title">
                     <Typography variant="h5" color="primary">
-                        SCHOOL MANAGEMENT SYSTEM
+                        School Management System
                     </Typography>
                 </div>
                 <nav>
