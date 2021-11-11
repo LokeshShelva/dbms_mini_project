@@ -35,7 +35,7 @@ function LoginPage() {
                 })
             } else {
                 localStorage.setItem('token', res.token)
-                window.location.href = "/";
+                window.location.href = "/faculty";
             }
         })
     }
@@ -44,7 +44,7 @@ function LoginPage() {
 
     return (
         <div className="login-container">
-            {token !== null ?
+            {token !== null && token !== "" ?
                 <Navigate to="/" />
                 :
                 <div className="inner">

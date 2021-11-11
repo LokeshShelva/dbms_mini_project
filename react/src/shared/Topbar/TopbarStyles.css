@@ -1,0 +1,15 @@
+.top-container{
+    width: 100%;
+    height: fit-content;
+    background: #0036A3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    padding: 8px 48px 14px 38px;
+}
+
+.top-container > button{
+    color: #fff;
+    border-color: #fff;
+}

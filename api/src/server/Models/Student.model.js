@@ -1,7 +1,5 @@
 const { Model } = require('objection');
 const { tableNames } = require('../../constants/tableNames');
-const ClassModel = require('./Class.model');
-const ParentModel = require('./Parent.model');
 
 class StudentModel extends Model {
     static get tableName() {
@@ -9,6 +7,10 @@ class StudentModel extends Model {
     }
 
     static get relationMappings() {
+        const ClassModel = require('./Class.model');
+        const ParentModel = require('./Parent.model');
+        const AddressModel = require('./Address.model');
+
         return {
             belongs: {
                 relation: Model.BelongsToOneRelation,
@@ -34,6 +36,15 @@ class StudentModel extends Model {
                 join: {
                     from: `${tableNames.student}.mother_id`,
                     to: `${tableNames.parent}.id`
+                }
+            },
+
+            address: {
+                relation: Model.HasOneRelation,
+                modelClass: AddressModel,
+                join: {
+                    from: `${tableNames.student}.address_id`,
+                    to: `${tableNames.address}.id`
                 }
             }
         };

@@ -5,7 +5,33 @@ const ParentModel = require('../../Models/Parent.model');
 
 const router = express.Router()
 
-router.get('/:class', async (req, res) => {
+const getAllDetailsOfStudent = async (fun) => {
+    const father = await StudentModel.relatedQuery('father').for(fun)
+    const mother = await StudentModel.relatedQuery('mother').for(fun)
+    const address = await StudentModel.relatedQuery('address').for(fun)
+
+    return { father: father[0], mother: mother[0], address: address[0] };
+}
+
+router.get('/', async (req, res) => {
+    const student = await StudentModel.query();
+    let result = [];
+    for (stu of student) {
+        let detail = await getAllDetailsOfStudent(stu.id)
+        result.push({ ...stu, ...detail })
+    }
+    res.json(result);
+})
+
+router.get('/:id', async (req, res) => {
+    const student = await StudentModel.query().findById(req.params.id);
+    const subQuery = StudentModel.query().findById(req.params.id);
+    const details = await getAllDetailsOfStudent(subQuery);
+    console.log(student)
+    res.json({ ...student, ...details });
+})
+
+router.get('/classId/:class', async (req, res) => {
     const cls = await ClassModel.query().where('id', req.params.class).limit(1);
     const std = await StudentModel.query().where('class_id', cls[0].id);
     console.log(std)
@@ -15,10 +41,9 @@ router.get('/:class', async (req, res) => {
 router.get('/userId/:id', async (req, res) => {
     const student = await StudentModel.query().where('user_id', req.params.id);
     const subQuery = StudentModel.query().where('user_id', req.params.id);
-    const father = await StudentModel.relatedQuery('father').for(subQuery);
-    const mother = await StudentModel.relatedQuery('mother').for(subQuery);
+    const details = await getAllDetailsOfStudent(subQuery);
 
-    res.json({ ...student[0], father: father[0], mother: mother[0] })
+    res.json({ ...student[0], ...details })
 })
 
 module.exports = router;

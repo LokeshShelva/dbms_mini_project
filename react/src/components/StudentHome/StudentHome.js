@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
-function StudentNameCard() {
+// function StudentNameCard() {
 
-}
+// }
 
-function StudentHome({ userId }) {
+// function StudentHome({ userId }) {
 
-    useEffect(
-        () => {
-            axios.get(`/api/student/userId/${userId}`).then((val) => console.log(val.data))
-        }, [])
+//     useEffect(
+//         () => {
+//             axios.get(`/api/student/userId/${userId}`).then((val) => console.log(val.data))
+//         }, [])
 
-    return (
-        <h1>Hello</h1>
-    )
-}
+//     return (
+//         <h1>Hello</h1>
+//     )
+// }
 
-export default StudentHome;
+// export default StudentHome;
