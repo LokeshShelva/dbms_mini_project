@@ -20,10 +20,7 @@ const notFound = (req, res, next) => {
 const jwtAuthMiddleware = (req, res, next) => {
     const header = req.headers['authorization'];
     if (!header) {
-        res.status(403);
-        res.json({
-            message: "Unauthorized access"
-        })
+        res.status(403).json("unautorized")
         return;
     }
 

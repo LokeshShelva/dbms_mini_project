@@ -21,18 +21,18 @@ router.post('/signup', (req, res) => {
                 valid['password'] = hashed;
                 const user = await UserModel.query().insert({ ...valid })
                 if (!user) {
-                    res.status(500);
+                    res.status(200);
                     res.json({ errors: ['Unable to create user.'] })
                 }
                 res.status(200)
                 res.json({ message: "Successfully create user" })
             } else {
-                res.status(500)
+                res.status(200)
                 res.json({ errors: ['User with the email already exists.'] })
             }
         }
         ).catch((err) => {
-            res.status(500)
+            res.status(200)
             res.json({ errors: err.errors })
         })
 })
@@ -49,21 +49,21 @@ router.post('/login', (req, res) => {
             if (user.length !== 0) {
                 const validpass = await await bcrypt.compare(valid.password, user[0].password)
                 if (validpass) {
-                    const token = jwt.sign({ role: user.role, email: user.email }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
+                    const token = jwt.sign({ role: user[0].role, email: user[0].email, id: user[0].id }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
                     res.status(200);
                     res.json({ token })
                 } else {
-                    res.status(500);
+                    res.status(200);
                     res.json({ errors: ["Email or Password incorrect"] })
                 }
             } else {
-                res.status(500);
+                res.status(200);
                 res.json({ errors: ["Email or Password incorrect"] })
             }
 
         })
         .catch((err) => {
-            res.status(500)
+            res.status(200)
             res.json({ errors: err.errors })
         })
 })

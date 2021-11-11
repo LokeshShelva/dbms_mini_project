@@ -1,30 +1,26 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
+import StudentHome from "./StudentHome/StudentHome";
 import axios from "axios";
+import jwt from 'jsonwebtoken';
 
 function Home() {
-    const [data, setData] = React.useState([]);
+    const [token, setToken] = React.useState("");
+    const [loading, setLoading] = React.useState(true);
 
-    const fetchData = () => {
-        axios.get('http://localhost:5000/api/faculty/teaching', {
-            headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzU1MjMyMDYsImV4cCI6MTYzODExNTIwNn0.JSedX7alhX53j5LYtrus_AfmY-Xc0ktikFRXGdkltig',
-            }
-        }).then((val) => {
-            setData(val.data)
-        })
+    const checkUser = () => {
+        const token = localStorage.getItem('token');
+        setToken(token);
+        setLoading(false);
+        console.log(jwt.decode(token))
     }
 
-    React.useEffect(fetchData, [])
+    React.useEffect(checkUser, [])
 
     return (
-        <div>
-            {data && data.map(val =>
-                <div key={val.id}>
-                    <h4>{val.name}</h4>
-                    <p>Rs. {val.salary}</p>
-                </div>
-            )}
-        </div>
+        !loading && (token == null || token === "null") ? <Navigate to="/login"></Navigate> : (
+            token && jwt.decode(token).role == 'student' ? <StudentHome userId={jwt.decode(token).id}></StudentHome> : <div>Hi</div>
+        )
     )
 }
 

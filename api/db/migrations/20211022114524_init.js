@@ -68,6 +68,7 @@ exports.up = async (knex) => {
         table.string('blood_group', 3).notNullable().default('O+');
         table.integer('salary').notNullable();
         table.date('joining_date').notNullable();
+        addRef(table, tableNames.user, false);
         addRef(table, tableNames.role);
         addRef(table, tableNames.address);
     });
@@ -101,6 +102,7 @@ exports.up = async (knex) => {
         table.integer('fee').notNullable();
         table.integer('scholarship').notNullable().default(0);
         table.date('admission_date').notNullable();
+        addRef(table, tableNames.user, false);
         addRef(table, tableNames.parent, true, 'father');
         addRef(table, tableNames.parent, true, 'mother');
         addRef(table, tableNames.class);

@@ -31,7 +31,7 @@ app.use('/api', jwtAuthMiddleware);
 app.use('/api/student', studentRoute);
 app.use('/api/faculty', facultyRoute);
 
-app.get('/api', (req, res) => {
+app.get('/lol', (req, res) => {
     res.setHeader('Content-type', 'application/json')
     res.json({
         message: "hello"

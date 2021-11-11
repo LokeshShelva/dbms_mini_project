@@ -5,13 +5,25 @@ exports.seed = async (knex) => {
   await Promise.all(dropOrder.map(async (table) => knex(table).del()))
   await knex(tableNames.grade).insert([{ grade: "S" }, { grade: "A" }, { grade: "B" }, { grade: "C" }, { grade: "D" }, { grade: "E" }, { grade: "F" }]);
 
-  const hashed = await bcrypt.hash('mypassword', 10);
+  const hashed = await bcrypt.hash('password', 10);
 
-  await knex(tableNames.user).insert({
-    email: "lokesh@some.com",
-    password: hashed,
-    role: 'admin'
-  });
+  await knex(tableNames.user).insert([
+    {
+      email: "lokesh@some.com",
+      password: hashed,
+      role: 'admin'
+    },
+    {
+      email: "student@some.com",
+      password: hashed,
+      role: 'student'
+    },
+    {
+      email: "teacher@some.com",
+      password: hashed,
+      role: 'teacher'
+    }
+  ]);
 
   await knex(tableNames.section).insert([
     { section: "A" },
@@ -115,7 +127,8 @@ exports.seed = async (knex) => {
       blood_group: "A+",
       address_id: 3,
       salary: 25000,
-      joining_date: "2005-02-10"
+      joining_date: "2005-02-10",
+      user_id: 3
     },
     {
       name: "Praveen",
@@ -133,7 +146,8 @@ exports.seed = async (knex) => {
       blood_group: "O+",
       address_id: 2,
       salary: 45000,
-      joining_date: "2001-02-10"
+      joining_date: "2001-02-10",
+      user_id: 1
     },
     {
       name: "Lakshmi",
@@ -268,7 +282,7 @@ exports.seed = async (knex) => {
   ]);
 
   await knex(tableNames.class).insert([
-    
+
     {
       section_id: 1,
       class_teacher_id: 1,
@@ -294,28 +308,23 @@ exports.seed = async (knex) => {
   await knex(tableNames.teachingClassSubject).insert([
     {
       faculty_id: 1,
-      class_id: "vettaikaran street",
-      subject_id: "karaikal",
+      class_id: 1,
+      subject_id: 1,
     },
     {
-      faculty_id: "10",
-      class_id: "vettaikaran street",
-      subject_id: "karaikal",
+      faculty_id: 1,
+      class_id: 1,
+      subject_id: 2,
     },
     {
-      faculty_id: "10",
-      class_id: "vettaikaran street",
-      subject_id: "karaikal",
+      faculty_id: 4,
+      class_id: 2,
+      subject_id: 3,
     },
     {
-      faculty_id: "10",
-      class_id: "vettaikaran street",
-      subject_id: "karaikal",
-    },
-    {
-      faculty_id: "10",
-      class_id: "vettaikaran street",
-      subject_id: "karaikal",
+      faculty_id: 4,
+      class_id: 3,
+      subject_id: 3,
     },
   ]);
 
@@ -324,20 +333,21 @@ exports.seed = async (knex) => {
       name: "Aditi Musunur",
       dob: "2001-12-24",
       blood_group: "A+",
-      father_id: "Father",
-      mother_id: "Mother",
+      father_id: 1,
+      mother_id: 3,
       class_id: 1,
       fee: 24000,
       scholarship: 0,
       address_id: 1,
       admission_date: "2004-05-11",
+      user_id: 2
     },
     {
       name: "Advitiya",
       dob: "2000-10-24",
       blood_group: "B+",
-      father_id: "Father",
-      mother_id: "Mother",
+      father_id: 1,
+      mother_id: 3,
       class_id: 1,
       fee: 24000,
       scholarship: 1000,
@@ -348,8 +358,8 @@ exports.seed = async (knex) => {
       name: "Jitendra",
       dob: "2001-05-11",
       blood_group: "O+",
-      father_id: "Father",
-      mother_id: "Mother",
+      father_id: 2,
+      mother_id: 4,
       class_id: 2,
       fee: 24000,
       scholarship: 0,
@@ -360,8 +370,8 @@ exports.seed = async (knex) => {
       name: "Naveen",
       dob: "2001-06-12",
       blood_group: "O-",
-      father_id: "Father",
-      mother_id: "Mother",
+      father_id: 2,
+      mother_id: 4,
       class_id: 2,
       fee: 24000,
       scholarship: 2000,
@@ -370,10 +380,10 @@ exports.seed = async (knex) => {
     },
     {
       name: "Kageyama",
-      dob: "vettaikaran street",
-      blood_group: "karaikal",
-      father_id: "Father",
-      mother_id: "Mother",
+      dob: "2000-10-24",
+      blood_group: "B+",
+      father_id: 1,
+      mother_id: 3,
       class_id: 3,
       fee: 30000,
       scholarship: 0,
@@ -382,10 +392,10 @@ exports.seed = async (knex) => {
     },
     {
       name: "Hinata",
-      dob: "vettaikaran street",
-      blood_group: "karaikal",
-      father_id: "Father",
-      mother_id: "Mother",
+      dob: "2000-10-24",
+      blood_group: "AB+",
+      father_id: 5,
+      mother_id: 3,
       class_id: 3,
       fee: 30000,
       scholarship: 2000,
@@ -394,10 +404,10 @@ exports.seed = async (knex) => {
     },
     {
       name: "Izuku",
-      dob: "vettaikaran street",
-      blood_group: "karaikal",
-      father_id: "Father",
-      mother_id: "Mother",
+      dob: "2000-10-24",
+      blood_group: "o-",
+      father_id: 2,
+      mother_id: 4,
       class_id: 4,
       fee: 30000,
       scholarship: 0,
@@ -406,17 +416,17 @@ exports.seed = async (knex) => {
     },
     {
       name: "Tongari",
-      dob: "vettaikaran street",
-      blood_group: "karaikal",
-      father_id: "Father",
-      mother_id: "Mother",
+      dob: "2000-10-24",
+      blood_group: "A+",
+      father_id: 2,
+      mother_id: 4,
       class_id: 4,
       fee: 30000,
       scholarship: 2000,
       address_id: 3,
       admission_date: "2004-05-11",
     },
-    
+
 
   ]);
 
@@ -461,7 +471,7 @@ exports.seed = async (knex) => {
       academic_year: 2020,
       term: 2,
     },
-  
+
   ]);
 
   await knex(tableNames.attendance).insert([
@@ -527,7 +537,7 @@ exports.seed = async (knex) => {
       student_id: 1,
       class_id: 1,
       academic_year: 2020,
-      subject: 1,
+      subject_id: 1,
       score: 90,
       grade_id: 2,
       exam_id: 1,
@@ -536,7 +546,7 @@ exports.seed = async (knex) => {
       student_id: 1,
       class_id: 1,
       academic_year: 2020,
-      subject: 2,
+      subject_id: 2,
       score: 80,
       grade_id: 2,
       exam_id: 2,
@@ -545,7 +555,7 @@ exports.seed = async (knex) => {
       student_id: 1,
       class_id: 1,
       academic_year: 2020,
-      subject: 3,
+      subject_id: 3,
       score: 70,
       grade_id: 3,
       exam_id: 3,
@@ -554,7 +564,7 @@ exports.seed = async (knex) => {
       student_id: 1,
       class_id: 1,
       academic_year: 2020,
-      subject: 4,
+      subject_id: 4,
       score: 50,
       grade_id: 5,
       exam_id: 4,
