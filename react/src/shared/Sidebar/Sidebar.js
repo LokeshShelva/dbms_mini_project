@@ -36,9 +36,9 @@ function Sidebar({ role }) {
                         <Mode className="icon" />
                         <p className="nav-item">Attendance</p>
                     </div>
-                    {role === "admin" ? <div className={`nav-container ${location.pathname.includes('fee') ? 'active' : ''}`} onClick={() => navClick('fee')}>
+                    {role === "admin" ? <div className={`nav-container ${location.pathname.includes('fees') ? 'active' : ''}`} onClick={() => navClick('fees')}>
                         <MonetizationOn className="icon" />
-                        <p className="nav-item">Fee</p>
+                        <p className="nav-item">Fees</p>
                     </div> : <></>}
                 </nav>
             </div>) : <></>

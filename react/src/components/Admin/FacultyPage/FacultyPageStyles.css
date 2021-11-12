@@ -14,11 +14,31 @@
 
 .another-container{
     overflow-y: scroll;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
+}
+
+.another-container::-webkit-scrollbar{
+    width: 12px;
+}
+
+.another-container::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+  
+  /* Handle */
+.another-container::-webkit-scrollbar-thumb {
+    background: #a0c0ff;
+    border-radius: 8px;
+}
+  
+  /* Handle on hover */
+.another-container::-webkit-scrollbar-thumb:hover {
+    background: #88afff;
 }
 
 .table{
     width: 100%;
-    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .faculty-btn{
@@ -28,7 +48,7 @@
 /* Add Faculty Dialog */
 
 .faculty-page-add-container{
-    width: 35vw;
+    width: 30vw;
     /* height: 70vh; */
 }
 
