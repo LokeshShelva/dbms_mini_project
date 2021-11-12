@@ -1,0 +1,95 @@
+.title{
+    padding-top: 3%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 42px;
+    line-height: 56px;
+    color: #0036A3;
+    }
+    .titleContainer{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .studentCard{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 24px 92px;
+        background: #FFFFFF;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+    
+    .name{
+    
+    /* Headline 5 */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height, or 100% */
+    
+    letter-spacing: 0.18px;
+    
+    /* 01. Primary/500 */
+    
+    color: #0052F5;
+    
+    
+    /* Inside Auto Layout */
+    
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 14px 0px;
+    }
+    
+    .question{
+    
+    /* Body 1 */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+    
+    letter-spacing: 0.5px;
+    
+    /* 01. Primary/500 */
+    
+    color: #0052F5;
+    }
+    
+    .answer{
+        
+    
+    /* Body 2 */
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    
+    letter-spacing: 0.25px;
+    
+    /* 01. Primary/300 */
+    
+    color: #4785FF;
+    
+    
+    /* Inside Auto Layout */
+    
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 8px;
+    }
