@@ -22,12 +22,14 @@ export default function FacultyDetailDialog({ faculty, onClose, open }) {
                     <Typography variant="h6" className="center">Joining date</Typography>
                     <Typography variant="subtitle1" className="center">{faculty.joining_date}</Typography>
                     <Typography variant="h6">Address</Typography>
-                    <div>
-                        <Typography variant="subtitle1" className="center">{faculty.address.house_no},</Typography>
-                        <Typography variant="subtitle1" className="center">{faculty.address.street_name},</Typography>
-                        <Typography variant="subtitle1" className="center">{faculty.address.city},</Typography>
-                        <Typography variant="subtitle1" className="center">{faculty.address.state}</Typography>
-                    </div>
+                    {faculty.address &&
+                        <div>
+                            <Typography variant="subtitle1" className="center">{faculty.address.house_no},</Typography>
+                            <Typography variant="subtitle1" className="center">{faculty.address.street_name},</Typography>
+                            <Typography variant="subtitle1" className="center">{faculty.address.city},</Typography>
+                            <Typography variant="subtitle1" className="center">{faculty.address.state}</Typography>
+                        </div>
+                    }
                 </div>
             </DialogContent>
 
