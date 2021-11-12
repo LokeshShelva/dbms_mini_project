@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/classId/:class', async (req, res) => {
     const cls = await ClassModel.query().where('id', req.params.class).limit(1);
-    const std = await StudentModel.query().where('class_id', cls[0].id);
+    const std = await StudentModel.query().where('class_id', cls[0].id).orderBy('id');
     console.log(std)
     res.json({ msg: "hi" })
 })
