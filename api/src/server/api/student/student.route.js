@@ -31,14 +31,14 @@ router.get('/:id', async (req, res) => {
     res.json({ ...student, ...details });
 })
 
-router.get('/classId/:class', async (req, res) => {
+router.get('/class_id/:class', async (req, res) => {
     const cls = await ClassModel.query().where('id', req.params.class).limit(1);
     const std = await StudentModel.query().where('class_id', cls[0].id).orderBy('id');
     console.log(std)
     res.json({ msg: "hi" })
 })
 
-router.get('/userId/:id', async (req, res) => {
+router.get('/user_id/:id', async (req, res) => {
     const student = await StudentModel.query().where('user_id', req.params.id);
     const subQuery = StudentModel.query().where('user_id', req.params.id);
     const details = await getAllDetailsOfStudent(subQuery);
