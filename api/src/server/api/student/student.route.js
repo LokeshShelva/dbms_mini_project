@@ -7,6 +7,7 @@ const SubjectModel = require('../../Models/Subject.Model');
 const GradeModel = require('../../Models/Grade.model');
 const ExamModel = require('../../Models/Exam.model');
 const knex = require('../../db');
+const { tableNames } = require("../../../constants/tableNames");
 
 const router = express.Router()
 
@@ -29,15 +30,16 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id/result', async (req, res) => {
+    const student_id = await knex.column('id').select().from(`${tableNames.student}`).where({ user_id: req.params.id })
     const results =
         await knex
-            .column(['Result.id', 'academic_year', 'score', 'exam', 'subject', 'grade'])
+            .column([`${tableNames.result}.id`, 'academic_year', 'score', 'exam', 'subject', 'grade'])
             .select()
-            .from('Result')
-            .where('student_id', req.params.id)
-            .leftJoin('Subject', 'Subject.id', 'Result.subject_id')
-            .leftJoin('Grade', 'Grade.id', 'Result.grade_id')
-            .leftJoin('Exam', 'Exam.id', "Result.exam_id")
+            .from(`${tableNames.result}`)
+            .where('student_id', student_id[0].id)
+            .leftJoin('Subject', `${tableNames.subject}.id`, `${tableNames.result}.subject_id`)
+            .leftJoin('Grade', `${tableNames.grade}.id`, `${tableNames.result}.grade_id`)
+            .leftJoin('Exam', `${tableNames.exam}.id`, `${tableNames.result}.exam_id`)
             .where(req.query)
 
     res.json(results)
