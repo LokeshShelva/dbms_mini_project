@@ -6,6 +6,7 @@ const ResultModel = require('../../Models/Result.model');
 const SubjectModel = require('../../Models/Subject.Model');
 const GradeModel = require('../../Models/Grade.model');
 const ExamModel = require('../../Models/Exam.model');
+const knex = require('../../db');
 
 const router = express.Router()
 
@@ -28,16 +29,18 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id/result', async (req, res) => {
-    const results = await StudentModel.relatedQuery('result').for(StudentModel.query().findById(req.params.id)).where(req.query);
-    const final = []
+    const results =
+        await knex
+            .column(['Result.id', 'academic_year', 'score', 'exam', 'subject', 'grade'])
+            .select()
+            .from('Result')
+            .where('student_id', req.params.id)
+            .leftJoin('Subject', 'Subject.id', 'Result.subject_id')
+            .leftJoin('Grade', 'Grade.id', 'Result.grade_id')
+            .leftJoin('Exam', 'Exam.id', "Result.exam_id")
+            .where(req.query)
 
-    for (result of results) {
-        const sub = await SubjectModel.query().findById(result.subject_id);
-        const grade = await GradeModel.query().findById(result.grade_id);
-        const exam = await ExamModel.query().findById(result.exam_id);
-        final.push({ ...result, subject: sub.subject, grade: grade.grade, exam: exam.exam })
-    }
-    res.json(final)
+    res.json(results)
 })
 
 router.get('/:id', async (req, res) => {

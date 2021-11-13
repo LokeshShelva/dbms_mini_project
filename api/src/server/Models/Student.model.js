@@ -60,14 +60,14 @@ class StudentModel extends Model {
 
             },
 
-            subject: {
-                relation: Model.HasOneRelation,
-                modelClass: SubjectModel,
-                join: {
-                    from: `${tableNames.result}.subject_id`,
-                    to: `${tableNames.subject}.id`
-                }
-            }
+            // subject: {
+            //     relation: Model.HasOneRelation,
+            //     modelClass: SubjectModel,
+            //     join: {
+            //         from: `${tableNames.result}.subject_id`,
+            //         to: `${tableNames.subject}.subject_id`
+            //     }
+            // }
         };
     }
 

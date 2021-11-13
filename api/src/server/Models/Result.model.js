@@ -11,7 +11,7 @@ class ResultModel extends Model {
 
         return {
             subject: {
-                relation: Model.HasOneRelation,
+                relation: Model.BelongsToOneRelation,
                 modelClass: SubjectModel,
                 join: {
                     from: `${tableNames.result}.subject_id`,
