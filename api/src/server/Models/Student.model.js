@@ -1,5 +1,6 @@
 const { Model } = require('objection');
 const { tableNames } = require('../../constants/tableNames');
+const SubjectModel = require('./Subject.Model');
 
 class StudentModel extends Model {
     static get tableName() {
@@ -10,6 +11,7 @@ class StudentModel extends Model {
         const ClassModel = require('./Class.model');
         const ParentModel = require('./Parent.model');
         const AddressModel = require('./Address.model');
+        const ResultModel = require('./Result.model');
 
         return {
             belongs: {
@@ -22,7 +24,7 @@ class StudentModel extends Model {
             },
 
             father: {
-                relation: Model.HasManyRelation,
+                relation: Model.HasOneRelation,
                 modelClass: ParentModel,
                 join: {
                     from: `${tableNames.student}.father_id`,
@@ -31,7 +33,7 @@ class StudentModel extends Model {
             },
 
             mother: {
-                relation: Model.HasManyRelation,
+                relation: Model.HasOneRelation,
                 modelClass: ParentModel,
                 join: {
                     from: `${tableNames.student}.mother_id`,
@@ -45,6 +47,25 @@ class StudentModel extends Model {
                 join: {
                     from: `${tableNames.student}.address_id`,
                     to: `${tableNames.address}.id`
+                }
+            },
+
+            result: {
+                relation: Model.HasManyRelation,
+                modelClass: ResultModel,
+                join: {
+                    from: `${tableNames.student}.id`,
+                    to: `${tableNames.result}.student_id`
+                }
+
+            },
+
+            subject: {
+                relation: Model.HasOneRelation,
+                modelClass: SubjectModel,
+                join: {
+                    from: `${tableNames.result}.subject_id`,
+                    to: `${tableNames.subject}.id`
                 }
             }
         };

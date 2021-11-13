@@ -2,6 +2,10 @@ const express = require('express');
 const StudentModel = require('../../Models/Student.model');
 const ClassModel = require('../../Models/Class.model');
 const ParentModel = require('../../Models/Parent.model');
+const ResultModel = require('../../Models/Result.model');
+const SubjectModel = require('../../Models/Subject.Model');
+const GradeModel = require('../../Models/Grade.model');
+const ExamModel = require('../../Models/Exam.model');
 
 const router = express.Router()
 
@@ -21,6 +25,19 @@ router.get('/', async (req, res) => {
         result.push({ ...stu, ...detail })
     }
     res.json(result);
+})
+
+router.get('/:id/result', async (req, res) => {
+    const results = await StudentModel.relatedQuery('result').for(StudentModel.query().findById(req.params.id)).where(req.query);
+    const final = []
+
+    for (result of results) {
+        const sub = await SubjectModel.query().findById(result.subject_id);
+        const grade = await GradeModel.query().findById(result.grade_id);
+        const exam = await ExamModel.query().findById(result.exam_id);
+        final.push({ ...result, subject: sub.subject, grade: grade.grade, exam: exam.exam })
+    }
+    res.json(final)
 })
 
 router.get('/:id', async (req, res) => {
