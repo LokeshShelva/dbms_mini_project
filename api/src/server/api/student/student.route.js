@@ -27,6 +27,21 @@ router.get('/:id/parents', async (req, res) => {
     res.json(result)
 })
 
+router.get('/:id/result', async (req, res) => {
+    const results =
+        await knex
+            .column([`${tableNames.result}.id`, 'academic_year', 'score', 'exam', 'subject', 'grade'])
+            .select()
+            .from(`${tableNames.result}`)
+            .where('student_id', req.params.id)
+            .leftJoin('Subject', `${tableNames.subject}.id`, `${tableNames.result}.subject_id`)
+            .leftJoin('Grade', `${tableNames.grade}.id`, `${tableNames.result}.grade_id`)
+            .leftJoin('Exam', `${tableNames.exam}.id`, `${tableNames.result}.exam_id`)
+            .where(req.query)
+
+    res.json(results)
+})
+
 /**
  * Route to get the details of a student.
  * @param {int} student_id

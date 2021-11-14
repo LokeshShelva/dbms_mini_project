@@ -46,13 +46,17 @@ function StudentDetails({ student, onClose, open }) {
                     <Typography variant="h6" className="center">Blood Group</Typography>
                     <Typography variant="subtitle1" className="center">{student.blood_group}</Typography>
                     <Typography variant="h6" className="center">Admission date</Typography>
-                    <Typography variant="subtitle1" className="center">{student.admission_date}</Typography>
+                    <div className="center">
+                        <Typography variant="subtitle1">{student.admission_date}</Typography>
+                        <br />
+                    </div>
                     <Typography variant="h6">Address</Typography>
                     <div>
                         <Typography variant="subtitle1" className="center">{student.house_no},</Typography>
                         <Typography variant="subtitle1" className="center">{student.street_name},</Typography>
                         <Typography variant="subtitle1" className="center">{student.city},</Typography>
                         <Typography variant="subtitle1" className="center">{student.state}</Typography>
+                        <br />
                     </div>
                     <Typography variant="h6">Parents</Typography>
                     <div>
@@ -107,37 +111,42 @@ function StudentTable({ students }) {
     };
 
     return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <StyledTableCell>No</StyledTableCell>
-                    <StyledTableCell>Name</StyledTableCell>
-                    <StyledTableCell>DOB</StyledTableCell>
-                    <StyledTableCell></StyledTableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
+        students && students.length !== 0 ? <div className="table-cont">
+            <div className="table-cont-inner">
+                <Table className="box-shadow">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>No</StyledTableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell>DOB</StyledTableCell>
+                            <StyledTableCell></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
 
-                {students && students.length !== 0 ?
-                    students.map(
-                        (val, index) =>
-                            <StyledTableRow key={index}>
-                                <StyledTableCell>{index + 1}</StyledTableCell>
-                                <StyledTableCell>{val.name}</StyledTableCell>
-                                <StyledTableCell>{formatDate(val.dob)}</StyledTableCell>
-                                <StyledTableCell><Button key={val.id} onClick={() => onDetail(val.id)}>details</Button></StyledTableCell>
-                            </StyledTableRow>
-                    )
-                    :
-                    <div className="empty-state-container">
-                        <Typography variant="h5">
-                            Select a Class and Section
-                        </Typography>
-                    </div>
-                }
-            </TableBody>
-            <StudentDetails open={open} onClose={handleClose} student={selectedStudent}></StudentDetails>
-        </Table>
+                        {students && students.length !== 0 ?
+                            students.map(
+                                (val, index) =>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{index + 1}</StyledTableCell>
+                                        <StyledTableCell>{val.name}</StyledTableCell>
+                                        <StyledTableCell>{formatDate(val.dob)}</StyledTableCell>
+                                        <StyledTableCell><Button key={val.id} onClick={() => onDetail(val.id)}>details</Button></StyledTableCell>
+                                    </StyledTableRow>
+                            )
+                            :
+                            <> </>
+                        }
+                    </TableBody>
+                    <StudentDetails open={open} onClose={handleClose} student={selectedStudent}></StudentDetails>
+                </Table>
+            </div>
+        </div> :
+            <div className="empty-state-container">
+                <Typography variant="h5">
+                    Select a Class and Section
+                </Typography>
+            </div>
     )
 }
 

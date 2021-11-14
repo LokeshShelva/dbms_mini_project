@@ -22,4 +22,9 @@ router.get("/section/:class", async (req, res) => {
     res.json(result)
 })
 
+router.get("/exam", async (req, res) => {
+    const result = await knex(`${tableNames.exam}`);
+    res.json(result)
+})
+
 module.exports = router;

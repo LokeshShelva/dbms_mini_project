@@ -18,22 +18,22 @@
 
 }
 
-.another-container::-webkit-scrollbar{
+::-webkit-scrollbar{
     width: 12px;
 }
 
-.another-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #ffffff;
 }
   
   /* Handle */
-.another-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #a0c0ff;
     border-radius: 8px;
 }
   
   /* Handle on hover */
-.another-container::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #88afff;
 }
 
