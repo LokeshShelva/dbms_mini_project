@@ -2,32 +2,42 @@ const express = require('express');
 const AddressModel = require('../../Models/Address.model');
 const FacultyModel = require('../../Models/Faculty.model');
 const RoleModel = require('../../Models/Role.model');
+const knex = require('../../db');
+const { tableNames } = require('../../../constants/tableNames');
 
 const router = express.Router();
 
-router.get('/id/:id', async (req, res) => {
-    const subQ = FacultyModel.query().where('id', req.params.id)
-    const faculty = await FacultyModel.query().where('id', req.params.id);
-    const address = await FacultyModel.relatedQuery('address').for(subQ);
-    const role = await FacultyModel.relatedQuery('role').for(subQ);
-    res.json({ ...faculty[0], address: address[0], role: role[0].role });
+router.get('/user_id/:id', async (req, res) => {
+
+    const result =
+        await knex.select().from(`${tableNames.faculty}`).where(`${tableNames.faculty}.user_id  `, req.params.id)
+            .leftJoin(`${tableNames.address}`, `${tableNames.address}.id`, `${tableNames.faculty}.address_id`)
+            .leftJoin(`${tableNames.role}`, `${tableNames.role}.id`, `${tableNames.faculty}.role_id`);
+
+    res.json(result);
 })
 
-router.get('/all', async (req, res) => {
+router.get('/role/:role', async (req, res) => {
+    const subQuery = knex.column('id').select().from(`${tableNames.role}`).where('role', req.params.role);
+    const faculty = await knex.select().from(`${tableNames.faculty}`).where('role_id', 'in', subQuery)
+    res.json(faculty);
+})
+
+router.get('/:id', async (req, res) => {
+
+    const result =
+        await knex.select().from(`${tableNames.faculty}`).where(`${tableNames.faculty}.id`, req.params.id)
+            .leftJoin(`${tableNames.address}`, `${tableNames.address}.id`, `${tableNames.faculty}.address_id`)
+            .leftJoin(`${tableNames.role}`, `${tableNames.role}.id`, `${tableNames.faculty}.role_id`);
+
+    res.json(result);
+})
+
+router.get('/', async (req, res) => {
     const faculty = await FacultyModel.query().select(
-        req.query['small'] == 'true' ? ['id', 'name', 'dob', 'salary'] : []
+        req.query.small && ['id', 'name', 'dob', 'salary']
     ).orderBy('id');
     res.json(faculty)
-})
-
-router.get('/:role?', async (req, res) => {
-    const role = await RoleModel.query().where('role', req.params.role).select('id');
-    const faculty = await FacultyModel.query().where('role_id', role[0].id).select(
-        req.query['small'] == 'true' ? ['id', 'name', 'dob', 'salary'] : []
-    ).orderBy('id');
-
-    res.status(200);
-    res.json(faculty);
 })
 
 router.post('/', async (req, res) => {

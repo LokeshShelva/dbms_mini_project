@@ -123,7 +123,7 @@ function FacultyPage({ role }) {
     const [openAddDialog, setOpenAddDialog] = useState(false);
 
     const fetchData = () => {
-        axios.get('/api/faculty/all?small=true').then(
+        axios.get('/api/faculty?small=true').then(
             (val) => {
                 const data = val.data.map(
                     (faculty) => {
@@ -157,12 +157,12 @@ function FacultyPage({ role }) {
             return string[0].toUpperCase() + string.substring(1, string.length);
         }
 
-        axios.get(`/api/faculty/id/${id}`).then(
+        axios.get(`/api/faculty/${id}`).then(
             (val) => {
-                val.data['dob'] = formatDate(val.data.dob)
-                val.data['joining_date'] = formatDate(val.data.joining_date);
-                val.data['role'] = toSentanceCase(val.data.role);
-                setSelectedFaculty(val.data);
+                val.data[0]['dob'] = formatDate(val.data[0].dob)
+                val.data[0]['joining_date'] = formatDate(val.data[0].joining_date);
+                val.data[0]['role'] = toSentanceCase(val.data[0].role);
+                setSelectedFaculty(val.data[0]);
                 setOpen(true);
             }
         )

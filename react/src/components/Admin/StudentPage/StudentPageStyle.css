@@ -1,0 +1,27 @@
+.student-admin-container{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: auto;
+}
+
+.student-admin-btn-container{
+    display: flex;
+    margin-bottom: 38px;
+    /* flex-direction: column; */
+}
+
+.student-admin-btn{
+    min-width: 150px;
+}
+
+.student-admin-btn:first-child{
+    margin-right: 48px;
+}
+
+.student-admin-btn > .MuiFormControl-root {
+    width: 100%;
+}
