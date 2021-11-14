@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { styled, tableCellClasses, FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { styled, Button, tableCellClasses, FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Typography } from "@mui/material";
+import { Dialog, DialogTitle, Divider, DialogContent } from "@mui/material";
 import { Navigate } from "react-router";
 import checkToken from "../../../services/Utils";
 import axios from "axios";
@@ -29,7 +30,82 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     // },
 }));
 
+function StudentDetails({ student, onClose, open }) {
+    return (
+        <Dialog onClose={onClose} open={open} style={{ minWidth: "50%" }}>
+            <DialogTitle>{student.name}</DialogTitle>
+            <Divider />
+            <DialogContent>
+                <div className="grid-container">
+                    <Typography variant="h6" className="center">Dob</Typography>
+                    <Typography variant="subtitle1" className="center">{student.dob}</Typography>
+                    <Typography variant="h6" className="center">Fees</Typography>
+                    <Typography variant="subtitle1" className="center">Rs. {student.fee}</Typography>
+                    <Typography variant="h6" className="center">Scholarship</Typography>
+                    <Typography variant="subtitle1" className="center">RS. {student.scholarship}</Typography>
+                    <Typography variant="h6" className="center">Blood Group</Typography>
+                    <Typography variant="subtitle1" className="center">{student.blood_group}</Typography>
+                    <Typography variant="h6" className="center">Admission date</Typography>
+                    <Typography variant="subtitle1" className="center">{student.admission_date}</Typography>
+                    <Typography variant="h6">Address</Typography>
+                    <div>
+                        <Typography variant="subtitle1" className="center">{student.house_no},</Typography>
+                        <Typography variant="subtitle1" className="center">{student.street_name},</Typography>
+                        <Typography variant="subtitle1" className="center">{student.city},</Typography>
+                        <Typography variant="subtitle1" className="center">{student.state}</Typography>
+                    </div>
+                    <Typography variant="h6">Parents</Typography>
+                    <div>
+                        {student.parents &&
+                            student.parents.map(
+                                (val) =>
+                                    <>
+                                        <Typography variant="subtitle1" className="center">{val.name}</Typography>
+                                        <Typography variant="subtitle1" className="center">{val.occupation}</Typography>
+                                        <Typography variant="subtitle1" className="center">{val.phone}</Typography>
+                                        <Typography variant="subtitle1" className="center">{val.email}</Typography>
+                                        <br />
+                                    </>
+                            )
+                        }
+                    </div>
+
+                </div>
+            </DialogContent>
+
+        </Dialog>
+    )
+}
+
 function StudentTable({ students }) {
+
+    const [open, setOpen] = useState(false);
+    const [selectedStudent, setSelectedStudent] = useState({});
+
+    const formatDate = (date) => {
+        const d = new Intl.DateTimeFormat('en-GB', { timeZone: "IST" }).format(new Date(date.toString())).toString()
+        return d
+    }
+
+    const onDetail = (student_id) => {
+        axios.get(`/api/student/${student_id}`).then(
+            (val) => {
+                axios.get(`/api/student/${val.data[0].id}/parents`).then(
+                    (par) => {
+                        val.data[0]['dob'] = formatDate(val.data[0].dob)
+                        val.data[0]['admission_date'] = formatDate(val.data[0].admission_date);
+                        setSelectedStudent({ ...val.data[0], parents: par.data })
+                        setOpen(true);
+                    }
+                )
+            }
+        )
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <Table>
             <TableHead>
@@ -37,21 +113,30 @@ function StudentTable({ students }) {
                     <StyledTableCell>No</StyledTableCell>
                     <StyledTableCell>Name</StyledTableCell>
                     <StyledTableCell>DOB</StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                {students &&
+
+                {students && students.length !== 0 ?
                     students.map(
                         (val, index) =>
                             <StyledTableRow key={index}>
                                 <StyledTableCell>{index + 1}</StyledTableCell>
                                 <StyledTableCell>{val.name}</StyledTableCell>
-                                <StyledTableCell>{val.dob}</StyledTableCell>
+                                <StyledTableCell>{formatDate(val.dob)}</StyledTableCell>
+                                <StyledTableCell><Button key={val.id} onClick={() => onDetail(val.id)}>details</Button></StyledTableCell>
                             </StyledTableRow>
-
                     )
+                    :
+                    <div className="empty-state-container">
+                        <Typography variant="h5">
+                            Select a Class and Section
+                        </Typography>
+                    </div>
                 }
             </TableBody>
+            <StudentDetails open={open} onClose={handleClose} student={selectedStudent}></StudentDetails>
         </Table>
     )
 }
@@ -76,7 +161,7 @@ function StudentPage() {
         if (selectedClass && selectedSection) {
             axios.get(`/api/student/class/${selectedClass}?section_id=${selectedSection.section_id}`).then((val) => setSetudents(val.data))
         }
-    }, [, selectedSection])
+    }, [selectedSection])
 
     return (
         <div className="student-admin-container">
