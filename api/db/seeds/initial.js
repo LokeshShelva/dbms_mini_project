@@ -1,11 +1,20 @@
 const bcrypt = require('bcrypt');
 const { tableNames, dropOrder } = require('../../src/constants/tableNames');
+const getMockData = require('../../mock_data/mock');
 
 exports.seed = async (knex) => {
   await Promise.all(dropOrder.map(async (table) => knex(table).del()))
   await knex(tableNames.grade).insert([{ grade: "S" }, { grade: "A" }, { grade: "B" }, { grade: "C" }, { grade: "D" }, { grade: "E" }, { grade: "F" }]);
 
   const hashed = await bcrypt.hash('password', 10);
+
+  const blood_group = ['O+', 'O-', 'A+', 'A-', 'AB+', 'AB-'];
+
+  function choose(choice) {
+    return choice[Math.floor(Math.random() * choice.length)];
+  }
+
+  const mockData = getMockData();
 
   await knex(tableNames.user).insert([
     {
@@ -25,16 +34,22 @@ exports.seed = async (knex) => {
     }
   ]);
 
+  const maxGradeId = 7;
+
   await knex(tableNames.section).insert([
     { section: "A" },
     { section: "B" }
   ]);
+
+  const maxSectionId = 2;
 
   await knex(tableNames.role).insert([
     { role: "teaching" },
     { role: "principal" },
     { role: "non-teaching" }
   ]);
+
+  const maxRoleId = 3;
 
   await knex(tableNames.subject).insert([
     { subject: "maths" },
@@ -44,253 +59,53 @@ exports.seed = async (knex) => {
     { subject: "biology" },
     { subject: "chemistry" },
     { subject: "social" },
-    { subject: "drawing" },
-    { subject: "pe" },
   ]);
 
-  await knex(tableNames.address).insert([
-    {
-      house_no: "10",
-      street_name: "vettaikaran street",
-      city: "karaikal",
-      state: "puducherry",
-    },
-    {
-      house_no: "12",
-      street_name: "Rgvs street",
-      city: "karaikal",
-      state: "puducherry",
-    },
-    {
-      house_no: "11/3",
-      street_name: "Pk street",
-      city: "karaikal",
-      state: "puducherry",
-    },
-    {
-      house_no: "22",
-      street_name: "Gopi street",
-      city: "pondicherry",
-      state: "puducherry",
-    },
-    {
-      house_no: "45",
-      street_name: "shah jahan street",
-      city: "villianur",
-      state: "puducherry",
-    },
-  ]);
+  const maxSubjectId = 7;
 
-  await knex(tableNames.parent).insert([
-    {
-      name: "Raman G",
-      dob: "1982-07-12",
-      phone: "7824689514",
-      email: "email@gmail.com",
-      occupation: "goverment servent"
-    },
-    {
-      name: "Mathew",
-      dob: "1985-12-03",
-      phone: "9845627814",
-      email: "myemail@gmail.com",
-      occupation: "doctor"
-    },
-    {
-      name: "Sajana R",
-      dob: "1984-05-10",
-      phone: "8721984678",
-      email: "sanjana@gmail.com",
-      occupation: "housewife"
-    },
-    {
-      name: "Rejina",
-      dob: "1986-02-15",
-      phone: "9846325814",
-      email: "rejina@gmail.com",
-      occupation: "doctor"
-    },
-    {
-      name: "Shah Jahan",
-      dob: "1980-06-10",
-      phone: "9420685855",
-      email: "shahjahan@gmail.com",
-      occupation: "buisness"
-    },
-  ]);
+  await knex(tableNames.address).insert(mockData.student_address);
+  await knex(tableNames.address).insert(mockData.faculty_address);
 
-  await knex(tableNames.faculty).insert([
-    {
-      name: "Priyanka",
-      dob: "1992-07-19",
-      role_id: 1,
-      blood_group: "A+",
-      address_id: 3,
-      salary: 25000,
-      joining_date: "2005-02-10",
-      user_id: 3
-    },
-    {
-      name: "Praveen",
-      dob: "1990-02-11",
-      role_id: 1,
-      blood_group: "AB+",
-      address_id: 3,
-      salary: 25500,
-      joining_date: "2005-02-10"
-    },
-    {
-      name: "Sundari",
-      dob: "1972-03-15",
-      role_id: 2,
-      blood_group: "O+",
-      address_id: 2,
-      salary: 45000,
-      joining_date: "2001-02-10",
-      user_id: 1
-    },
-    {
-      name: "Lakshmi",
-      dob: "1990-12-05",
-      role_id: 1,
-      blood_group: "B+",
-      address_id: 3,
-      salary: 25500,
-      joining_date: "2005-02-10"
-    },
-    {
-      name: "Vijay",
-      dob: "1992-09-10",
-      role_id: 3,
-      blood_group: "O-",
-      address_id: 4,
-      salary: 12000,
-      joining_date: "2008-02-10"
-    },
-    {
-      name: "Krishna",
-      dob: "1980-02-15",
-      role_id: 1,
-      blood_group: "B+",
-      address_id: 5,
-      salary: 50500,
-      joining_date: "2001-12-20"
-    },
-  ]);
+  const maxAddressId = mockData.student_address.length + mockData.faculty_address.length;
 
-  await knex(tableNames.salaryPaidDetail).insert([
-    {
-      faculty_id: 1,
-      year: 2005,
-      month: 3
-    },
-    {
-      faculty_id: 1,
-      year: 2005,
-      month: 4
-    },
-    {
-      faculty_id: 1,
-      year: 2005,
-      month: 5
-    },
-    {
-      faculty_id: 1,
-      year: 2005,
-      month: 6
-    },
-    {
-      faculty_id: 2,
-      year: 2005,
-      month: 3
-    },
-    {
-      faculty_id: 2,
-      year: 2005,
-      month: 4
-    },
-    {
-      faculty_id: 2,
-      year: 2005,
-      month: 5
-    },
-    {
-      faculty_id: 2,
-      year: 2005,
-      month: 6
-    },
-    {
-      faculty_id: 3,
-      year: 2001,
-      month: 3
-    },
-    {
-      faculty_id: 3,
-      year: 2001,
-      month: 4
-    },
-    {
-      faculty_id: 3,
-      year: 2001,
-      month: 5
-    },
-    {
-      faculty_id: 3,
-      year: 2001,
-      month: 6
-    },
-    {
-      faculty_id: 4,
-      year: 2005,
-      month: 3
-    },
-    {
-      faculty_id: 4,
-      year: 2005,
-      month: 4
-    },
-    {
-      faculty_id: 4,
-      year: 2005,
-      month: 5
-    },
-    {
-      faculty_id: 4,
-      year: 2005,
-      month: 6
-    },
-    {
-      faculty_id: 5,
-      year: 2005,
-      month: 3
-    },
-    {
-      faculty_id: 5,
-      year: 2005,
-      month: 4
-    },
-    {
-      faculty_id: 5,
-      year: 2005,
-      month: 5
-    },
-    {
-      faculty_id: 5,
-      year: 2005,
-      month: 6
-    },
-  ]);
+  await knex(tableNames.parent).insert(mockData.father);
+
+  let mother = [];
+  mockData.mother.forEach((val) => {
+    val.id = parseInt(val.id) + 60;
+    mother.push(val);
+  })
+
+  await knex(tableNames.parent).insert(mother);
+
+  const maxParentId = mockData.father.length + mockData.mother.length;
+
+  let faculty = [];
+  mockData.faculty.forEach(
+    (f, i) => {
+      f['blood_group'] = choose(blood_group);
+      f['role_id'] = Math.floor(Math.random() * maxRoleId) + 1;
+      f['address_id'] = i + 60;
+      faculty.push(f);
+    }
+  )
+
+  await knex(tableNames.faculty).insert(faculty);
 
   await knex(tableNames.class).insert([
-
     {
       section_id: 1,
       class_teacher_id: 1,
+      class: "10",
+    },
+    {
+      section_id: 1,
+      class_teacher_id: 2,
       class: "11",
     },
     {
       section_id: 2,
-      class_teacher_id: 2,
+      class_teacher_id: 7,
       class: "11",
     },
     {
@@ -305,217 +120,57 @@ exports.seed = async (knex) => {
     },
   ]);
 
-  await knex(tableNames.teachingClassSubject).insert([
-    {
-      faculty_id: 1,
-      class_id: 1,
-      subject_id: 1,
-    },
-    {
-      faculty_id: 1,
-      class_id: 1,
-      subject_id: 2,
-    },
-    {
-      faculty_id: 4,
-      class_id: 2,
-      subject_id: 3,
-    },
-    {
-      faculty_id: 4,
-      class_id: 3,
-      subject_id: 3,
-    },
-  ]);
+  let classes = []
 
-  await knex(tableNames.student).insert([
-    {
-      name: "Aditi Musunur",
-      dob: "2001-12-24",
-      blood_group: "A+",
-      father_id: 1,
-      mother_id: 3,
-      class_id: 1,
-      fee: 24000,
-      scholarship: 0,
-      address_id: 1,
-      admission_date: "2004-05-11",
-      user_id: 2
-    },
-    {
-      name: "Advitiya",
-      dob: "2000-10-24",
-      blood_group: "B+",
-      father_id: 1,
-      mother_id: 3,
-      class_id: 1,
-      fee: 24000,
-      scholarship: 1000,
-      address_id: 2,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Jitendra",
-      dob: "2001-05-11",
-      blood_group: "O+",
-      father_id: 2,
-      mother_id: 4,
-      class_id: 2,
-      fee: 24000,
-      scholarship: 0,
-      address_id: 3,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Naveen",
-      dob: "2001-06-12",
-      blood_group: "O-",
-      father_id: 2,
-      mother_id: 4,
-      class_id: 2,
-      fee: 24000,
-      scholarship: 2000,
-      address_id: 4,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Kageyama",
-      dob: "2000-10-24",
-      blood_group: "B+",
-      father_id: 1,
-      mother_id: 3,
-      class_id: 3,
-      fee: 30000,
-      scholarship: 0,
-      address_id: 5,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Hinata",
-      dob: "2000-10-24",
-      blood_group: "AB+",
-      father_id: 5,
-      mother_id: 3,
-      class_id: 3,
-      fee: 30000,
-      scholarship: 2000,
-      address_id: 1,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Izuku",
-      dob: "2000-10-24",
-      blood_group: "o-",
-      father_id: 2,
-      mother_id: 4,
-      class_id: 4,
-      fee: 30000,
-      scholarship: 0,
-      address_id: 2,
-      admission_date: "2004-05-11",
-    },
-    {
-      name: "Tongari",
-      dob: "2000-10-24",
-      blood_group: "A+",
-      father_id: 2,
-      mother_id: 4,
-      class_id: 4,
-      fee: 30000,
-      scholarship: 2000,
-      address_id: 3,
-      admission_date: "2004-05-11",
-    },
+  for (let i = 1; i <= 5; i++) {
+    for (let j = 1; j <= 7; j++) {
+      classes.push({
+        faculty_id: Math.floor(Math.random() * 15) + 1,
+        class_id: i,
+        subject_id: j
+      })
+    }
+  }
 
+  await knex(tableNames.teachingClassSubject).insert(classes);
 
-  ]);
+  let students = [];
+  mockData.student.forEach((val, i) => {
+    val['father_id'] = i + 1;
+    val['mother_id'] = i + 61;
+    val['class_id'] = Math.floor(Math.random() * 5) + 1;
+    val['blood_group'] = choose(blood_group);
+    val['address_id'] = i + 1;
+    students.push(val);
+  })
 
-  await knex(tableNames.feePaidDetail).insert([
-    {
-      student_id: 1,
-      academic_year: 2020,
-      term: 1,
-    },
-    {
-      student_id: 2,
-      academic_year: 2020,
-      term: 2,
-    },
-    {
-      student_id: 3,
-      academic_year: 2020,
-      term: 1,
-    },
-    {
-      student_id: 4,
-      academic_year: 2020,
-      term: 1,
-    },
-    {
-      student_id: 5,
-      academic_year: 2020,
-      term: 3,
-    },
-    {
-      student_id: 6,
-      academic_year: 2020,
-      term: 2,
-    },
-    {
-      student_id: 7,
-      academic_year: 2020,
-      term: 1,
-    },
-    {
-      student_id: 8,
-      academic_year: 2020,
-      term: 2,
-    },
+  await knex(tableNames.student).insert(students);
 
-  ]);
+  const maxStudentsId = students.length;
 
-  await knex(tableNames.attendance).insert([
+  const dates = ['2021-11-01', '2021-11-02', '2021-11-03'];
+
+  let attendandes = []
+
+  for (date of dates) {
+    for (let i = 1; i <= maxStudentsId; i++) {
+      attendandes.push({
+        student_id: i,
+        date: new Date(date).toISOString()
+      })
+    }
+  }
+
+  await knex(tableNames.attendance).insert(attendandes);
+
+  await knex(tableNames.academicYear).insert([
     {
-      student_id: 1,
-      class_id: 1,
-      date: "2021-01-15",
+      academic_year: "2020"
     },
     {
-      student_id: 2,
-      class_id: 1,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 3,
-      class_id: 2,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 4,
-      class_id: 2,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 5,
-      class_id: 3,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 6,
-      class_id: 3,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 7,
-      class_id: 4,
-      date: "2021-01-15",
-    },
-    {
-      student_id: 8,
-      class_id: 4,
-      date: "2021-01-15",
-    },
-  ]);
+      academic_year: "2021"
+    }
+  ])
 
   await knex(tableNames.exam).insert([
     {
@@ -532,43 +187,47 @@ exports.seed = async (knex) => {
     },
   ]);
 
-  await knex(tableNames.result).insert([
-    {
-      student_id: 1,
-      class_id: 1,
-      academic_year: 2020,
-      subject_id: 1,
-      score: 90,
-      grade_id: 2,
-      exam_id: 1,
-    },
-    {
-      student_id: 1,
-      class_id: 1,
-      academic_year: 2020,
-      subject_id: 2,
-      score: 80,
-      grade_id: 2,
-      exam_id: 2,
-    },
-    {
-      student_id: 1,
-      class_id: 1,
-      academic_year: 2020,
-      subject_id: 3,
-      score: 70,
-      grade_id: 3,
-      exam_id: 3,
-    },
-    {
-      student_id: 1,
-      class_id: 1,
-      academic_year: 2020,
-      subject_id: 4,
-      score: 50,
-      grade_id: 5,
-      exam_id: 4,
-    },
+  let results = []
 
-  ]);
+  const findGrade = (num) => {
+    if (num < 40) {
+      return 7
+    }
+    if (num <= 50) {
+      return 6
+    }
+    if (num <= 60) {
+      return 5
+    }
+    if (num <= 70) {
+      return 4
+    }
+    if (num <= 80) {
+      return 3
+    }
+    if (num <= 90) {
+      return 2
+    }
+    return 1;
+  }
+
+  for (let year = 1; year <= 2; year++) {
+    for (let exam = 1; exam <= 4; exam++) {
+      for (let std = 1; std <= maxStudentsId; std++) {
+        for (let sub = 1; sub <= maxSubjectId; sub++) {
+          let src = Math.floor(Math.random() * 76 + 25);
+          results.push({
+            student_id: std,
+            academic_year_id: year,
+            subject_id: sub,
+            score: src,
+            grade_id: findGrade(src),
+            exam_id: exam
+          })
+        }
+      }
+    }
+  }
+
+  await knex(tableNames.result).insert(results);
 };

@@ -1,0 +1,527 @@
+[
+    {
+        "id": 1,
+        "house_no": "291",
+        "street_name": "Grasskamp",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 2,
+        "house_no": "4521",
+        "street_name": "Main",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 3,
+        "house_no": "84899",
+        "street_name": "Northview",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 4,
+        "house_no": "0141",
+        "street_name": "Independence",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 5,
+        "house_no": "48043",
+        "street_name": "Eggendart",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 6,
+        "house_no": "034",
+        "street_name": "Algoma",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 7,
+        "house_no": "25316",
+        "street_name": "Rowland",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 8,
+        "house_no": "814",
+        "street_name": "Lerdahl",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 9,
+        "house_no": "7",
+        "street_name": "Fair Oaks",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 10,
+        "house_no": "02",
+        "street_name": "Hallows",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 11,
+        "house_no": "391",
+        "street_name": "Miller",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 12,
+        "house_no": "2",
+        "street_name": "Barnett",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 13,
+        "house_no": "56517",
+        "street_name": "Granby",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 14,
+        "house_no": "33",
+        "street_name": "Hanover",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 15,
+        "house_no": "4633",
+        "street_name": "Ludington",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 16,
+        "house_no": "56",
+        "street_name": "Summer Ridge",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 17,
+        "house_no": "1965",
+        "street_name": "Briar Crest",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 18,
+        "house_no": "61327",
+        "street_name": "Bartillon",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 19,
+        "house_no": "195",
+        "street_name": "Anzinger",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 20,
+        "house_no": "4",
+        "street_name": "Loftsgordon",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 21,
+        "house_no": "5",
+        "street_name": "Steensland",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 22,
+        "house_no": "9",
+        "street_name": "Stuart",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 23,
+        "house_no": "7",
+        "street_name": "Homewood",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 24,
+        "house_no": "5",
+        "street_name": "Blue Bill Park",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 25,
+        "house_no": "078",
+        "street_name": "Gale",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 26,
+        "house_no": "588",
+        "street_name": "Dapin",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 27,
+        "house_no": "574",
+        "street_name": "Fordem",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 28,
+        "house_no": "5751",
+        "street_name": "Birchwood",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 29,
+        "house_no": "70",
+        "street_name": "Shelley",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 30,
+        "house_no": "8990",
+        "street_name": "Hoffman",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 31,
+        "house_no": "920",
+        "street_name": "Johnson",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 32,
+        "house_no": "2508",
+        "street_name": "Fisk",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 33,
+        "house_no": "694",
+        "street_name": "Pennsylvania",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 34,
+        "house_no": "44",
+        "street_name": "Sunfield",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 35,
+        "house_no": "66491",
+        "street_name": "Eagan",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 36,
+        "house_no": "4",
+        "street_name": "Ramsey",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 37,
+        "house_no": "5605",
+        "street_name": "Ridgeview",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 38,
+        "house_no": "9865",
+        "street_name": "Darwin",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 39,
+        "house_no": "42352",
+        "street_name": "Rieder",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 40,
+        "house_no": "330",
+        "street_name": "Rigney",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 41,
+        "house_no": "76",
+        "street_name": "Menomonie",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 42,
+        "house_no": "214",
+        "street_name": "Dahle",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 43,
+        "house_no": "56",
+        "street_name": "Dovetail",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 44,
+        "house_no": "0",
+        "street_name": "Hayes",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 45,
+        "house_no": "87",
+        "street_name": "Transport",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 46,
+        "house_no": "56236",
+        "street_name": "Magdeline",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 47,
+        "house_no": "6333",
+        "street_name": "Reinke",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 48,
+        "house_no": "89",
+        "street_name": "Kennedy",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 49,
+        "house_no": "3",
+        "street_name": "Starling",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 50,
+        "house_no": "24089",
+        "street_name": "Summerview",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 51,
+        "house_no": "0",
+        "street_name": "Northfield",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 52,
+        "house_no": "086",
+        "street_name": "Everett",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 53,
+        "house_no": "84455",
+        "street_name": "Mendota",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 54,
+        "house_no": "086",
+        "street_name": "Dayton",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 55,
+        "house_no": "463",
+        "street_name": "Bayside",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 56,
+        "house_no": "18576",
+        "street_name": "Farwell",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 57,
+        "house_no": "82",
+        "street_name": "Starling",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 58,
+        "house_no": "12617",
+        "street_name": "Kensington",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 59,
+        "house_no": "248",
+        "street_name": "Holy Cross",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 60,
+        "house_no": "030",
+        "street_name": "6th",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 61,
+        "house_no": "29225",
+        "street_name": "Norway Maple",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 62,
+        "house_no": "6",
+        "street_name": "Brown",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 63,
+        "house_no": "42341",
+        "street_name": "Superior",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 64,
+        "house_no": "7276",
+        "street_name": "Arrowood",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 65,
+        "house_no": "9094",
+        "street_name": "Summerview",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 66,
+        "house_no": "27",
+        "street_name": "Mifflin",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 67,
+        "house_no": "5553",
+        "street_name": "Prentice",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 68,
+        "house_no": "775",
+        "street_name": "Anzinger",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 69,
+        "house_no": "76568",
+        "street_name": "Division",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 70,
+        "house_no": "1737",
+        "street_name": "Pine View",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 71,
+        "house_no": "492",
+        "street_name": "Loomis",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 72,
+        "house_no": "58",
+        "street_name": "3rd",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    },
+    {
+        "id": 73,
+        "house_no": "0",
+        "street_name": "Bonner",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 74,
+        "house_no": "6512",
+        "street_name": "Dennis",
+        "city": "R S",
+        "state": "Gujarat"
+    },
+    {
+        "id": 75,
+        "house_no": "11241",
+        "street_name": "Logan",
+        "city": "Agraharam",
+        "state": "Andhra Pradesh"
+    }
+]

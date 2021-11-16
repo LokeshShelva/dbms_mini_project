@@ -73,12 +73,12 @@ exports.up = async (knex) => {
         addRef(table, tableNames.address);
     });
 
-    await knex.schema.createTable(tableNames.salaryPaidDetail, (table) => {
-        table.increments().notNullable();
-        table.integer('year').notNullable();
-        table.integer('month').notNullable();
-        addRef(table, tableNames.faculty);
-    });
+    // await knex.schema.createTable(tableNames.salaryPaidDetail, (table) => {
+    //     table.increments().notNullable();
+    //     table.integer('year').notNullable();
+    //     table.integer('month').notNullable();
+    //     addRef(table, tableNames.faculty);
+    // });
 
     await knex.schema.createTable(tableNames.class, (table) => {
         table.increments().notNullable();
@@ -109,19 +109,23 @@ exports.up = async (knex) => {
         addRef(table, tableNames.address);
     });
 
-    await knex.schema.createTable(tableNames.feePaidDetail, (table) => {
-        table.increments().notNullable();
-        table.integer('academic_year').notNullable();
-        table.integer('term').notNullable();
-        addRef(table, tableNames.student);
-    });
+    // await knex.schema.createTable(tableNames.feePaidDetail, (table) => {
+    //     table.increments().notNullable();
+    //     table.integer('academic_year').notNullable();
+    //     table.integer('term').notNullable();
+    //     addRef(table, tableNames.student);
+    // });
 
     await knex.schema.createTable(tableNames.attendance, (table) => {
         table.increments().notNullable();
         table.date('date').notNullable();
         addRef(table, tableNames.student);
-        addRef(table, tableNames.class);
     });
+
+    await knex.schema.createTable(tableNames.academicYear, (table) => {
+        table.increments().notNullable();
+        table.string('academic_year', 4).notNullable();
+    })
 
     await knex.schema.createTable(tableNames.exam, (table) => {
         table.increments().notNullable();
@@ -130,11 +134,10 @@ exports.up = async (knex) => {
 
     await knex.schema.createTable(tableNames.result, (table) => {
         table.increments().notNullable();
-        table.integer('academic_year').notNullable();
         table.integer('score').notNullable();
+        addRef(table, tableNames.academicYear);
         addRef(table, tableNames.exam);
         addRef(table, tableNames.student);
-        addRef(table, tableNames.class);
         addRef(table, tableNames.subject);
         addRef(table, tableNames.grade);
     });

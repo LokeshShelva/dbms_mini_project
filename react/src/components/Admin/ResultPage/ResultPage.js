@@ -73,6 +73,7 @@ export default function ResultPage() {
     const [classes, setClasses] = useState([]);
     const [sections, setSections] = useState([]);
     const [exams, setExams] = useState([]);
+    const [academicYears, setAcademicYears] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [selectedSection, setSelectedSection] = useState(null);
     const [selectedStudent, setSelectedStudent] = useState(null)
@@ -84,6 +85,7 @@ export default function ResultPage() {
     useEffect(() => {
         axios.get('/api/general/class').then((classes) => setClasses(classes.data))
         axios.get('api/general/exam').then((val) => setExams(val.data))
+        axios.get('api/general/academic_year').then((val) => setAcademicYears(val.data))
     }, []);
 
     const selectClass = (cls) => {
@@ -102,7 +104,7 @@ export default function ResultPage() {
 
     const fetchStudents = () => {
         if (selectedClass && selectedSection && selectedStudent) {
-            axios.get(`api/student/${selectedStudent.id}/result?${selectedYear != null ? `academic_year=${selectedYear}` : ''}${selectedExam != null ? `&exam_id=${selectedExam.id}` : ''}`).then(
+            axios.get(`api/student/${selectedStudent.id}/result?${selectedYear != null ? `academic_year_id=${selectedYear.id}` : ''}${selectedExam != null ? `&exam_id=${selectedExam.id}` : ''}`).then(
                 (val) => {
                     setResults(val.data.map(
                         (res) => {
@@ -164,8 +166,10 @@ export default function ResultPage() {
                     <FormControl>
                         <InputLabel id="student-admin-section">Academic year</InputLabel>
                         <Select labelId="student-admin-section" label="Academic year" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)} color="primary">
-                            <MenuItem value={2020} key={1}>2020</MenuItem>
-                            <MenuItem value={2021} key={2}>2021</MenuItem>
+                            {academicYears.map((year, i) => {
+                                return <MenuItem value={year} key={1}>{year.academic_year}</MenuItem>
+                            })
+                            }
                         </Select>
                     </FormControl>
                 </div>

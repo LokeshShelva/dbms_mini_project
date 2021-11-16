@@ -10,6 +10,7 @@ const compression = require('compression');
 const authRoute = require('./api/auth/auth.route');
 const studentRoute = require('./api/student/student.route');
 const facultyRoute = require('./api/faculty/faculty.route');
+const attendanceRoute = require('./api/attendance/attendance.route');
 const generalRoute = require('./api/general/general.route');
 
 const { errorHandler, notFound, jwtAuthMiddleware } = require('./middlewares');
@@ -32,6 +33,7 @@ app.use('/api', jwtAuthMiddleware);
 app.use('/api/student', studentRoute);
 app.use('/api/faculty', facultyRoute);
 app.use('/api/general', generalRoute);
+app.use('/api/attendance', attendanceRoute);
 
 app.get('/lol', (req, res) => {
     res.setHeader('Content-type', 'application/json')

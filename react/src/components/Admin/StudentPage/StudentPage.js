@@ -111,7 +111,7 @@ function StudentTable({ students }) {
     };
 
     return (
-        students && students.length !== 0 ? <div className="table-cont">
+        students && students.length !== 0 ? <div className="table-cont box-shadow">
             <div className="table-cont-inner">
                 <Table className="box-shadow">
                     <TableHead>

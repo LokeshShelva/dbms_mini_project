@@ -1,5 +1,5 @@
 .student-admin-container{
-    max-width: 80%;
+    min-width: 55%;
     height: 100%;
     display: flex;
     flex-direction: column;

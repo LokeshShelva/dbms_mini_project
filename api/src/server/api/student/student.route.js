@@ -34,6 +34,7 @@ router.get('/:id/result', async (req, res) => {
             .select()
             .from(`${tableNames.result}`)
             .where('student_id', req.params.id)
+            .leftJoin('Academic_year', `${tableNames.academicYear}.id`, `${tableNames.result}.academic_year_id`)
             .leftJoin('Subject', `${tableNames.subject}.id`, `${tableNames.result}.subject_id`)
             .leftJoin('Grade', `${tableNames.grade}.id`, `${tableNames.result}.grade_id`)
             .leftJoin('Exam', `${tableNames.exam}.id`, `${tableNames.result}.exam_id`)
