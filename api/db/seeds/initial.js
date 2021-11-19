@@ -148,7 +148,7 @@ exports.seed = async (knex) => {
 
   const maxStudentsId = students.length;
 
-  const dates = ['2021-11-01', '2021-11-02', '2021-11-03'];
+  const dates = ["1638316800000", '1638403200000', '1638489600000'];
 
   let attendandes = []
 
@@ -156,7 +156,7 @@ exports.seed = async (knex) => {
     for (let i = 1; i <= maxStudentsId; i++) {
       attendandes.push({
         student_id: i,
-        date: new Date(date).toISOString()
+        date: date
       })
     }
   }

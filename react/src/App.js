@@ -5,11 +5,12 @@ import FacultyPage from "./components/Admin/FacultyPage/FacultyPage";
 import LoginPage from "./components/Login/LoginPage";
 import StudentPage from "./components/Admin/StudentPage/StudentPage";
 import AttendancePage from "./components/Admin/AttendancePage/AttendancePage";
-import ResultPage from "./components/Admin/ResultPage/ResultPage";
-import FeesPage from "./components/Admin/FeesPage/FeesPage";
+// import ResultPage from "./components/Admin/ResultPage/ResultPage";
 import AppPage from "./components/AppPage";
 import checkToken from "./services/Utils";
 import StudentHome from "./components/StudentHome/StudentHome";
+// import TeacherResultPage from "./components/Teacher/ResultPage/TeacherResultPage";
+import ResultPageRedirect from "./components/ResultPageRedirect";
 
 const theme = createTheme({
     palette: {
@@ -40,8 +41,7 @@ class App extends Component {
                         <Route exact path="faculty" element={<FacultyPage role={this.state.token !== null ? this.state.token.role : null} />} />
                         <Route exact path="students" element={<StudentPage role={this.state.token !== null ? this.state.token.role : null} />} />
                         <Route exact path="attendance" element={<AttendancePage role={this.state.token !== null ? this.state.token.role : null} />} />
-                        <Route exact path="result" element={<ResultPage role={this.state.token !== null ? this.state.token.role : null} />} />
-                        <Route exact path="fees" element={<FeesPage role={this.state.token !== null ? this.state.token.role : null} />} />
+                        <Route exact path="result" element={<ResultPageRedirect user={this.state.token !== null ? this.state.token : null} />} />
                     </Route>
                     <Route exact path="/student_result" element={<StudentHome user={this.state.token} />} />
 

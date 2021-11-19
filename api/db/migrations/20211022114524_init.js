@@ -54,7 +54,7 @@ exports.up = async (knex) => {
         knex.schema.createTable(tableNames.parent, (table) => {
             table.increments().notNullable();
             table.string('name', 128).notNullable();
-            table.date('dob').notNullable();
+            table.string('dob',).notNullable();
             table.string('phone', 10).notNullable();
             table.string('email', 128);
             table.string('occupation', 35);
@@ -64,10 +64,10 @@ exports.up = async (knex) => {
     await knex.schema.createTable(tableNames.faculty, (table) => {
         table.increments().notNullable();
         table.string('name', 128).notNullable();
-        table.date('dob').notNullable();
+        table.string('dob', 20).notNullable();
         table.string('blood_group', 3).notNullable().default('O+');
         table.integer('salary').notNullable();
-        table.date('joining_date').notNullable();
+        table.string('joining_date', 20).notNullable();
         addRef(table, tableNames.user, false);
         addRef(table, tableNames.role);
         addRef(table, tableNames.address);
@@ -97,11 +97,11 @@ exports.up = async (knex) => {
     await knex.schema.createTable(tableNames.student, (table) => {
         table.increments().notNullable();
         table.string('name', 128).notNullable();
-        table.date('dob').notNullable();
+        table.string('dob', 20).notNullable();
         table.string('blood_group', 3).notNullable().default('O+');
         table.integer('fee').notNullable();
         table.integer('scholarship').notNullable().default(0);
-        table.date('admission_date').notNullable();
+        table.string('admission_date', 20).notNullable();
         addRef(table, tableNames.user, false);
         addRef(table, tableNames.parent, true, 'father');
         addRef(table, tableNames.parent, true, 'mother');
@@ -118,7 +118,7 @@ exports.up = async (knex) => {
 
     await knex.schema.createTable(tableNames.attendance, (table) => {
         table.increments().notNullable();
-        table.date('date').notNullable();
+        table.string('date', 30).notNullable();
         addRef(table, tableNames.student);
     });
 

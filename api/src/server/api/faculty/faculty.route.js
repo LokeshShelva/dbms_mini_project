@@ -7,6 +7,21 @@ const { tableNames } = require('../../../constants/tableNames');
 
 const router = express.Router();
 
+router.get('/user_id/:id/class', async (req, res) => {
+
+    const results = await knex
+        .column(['class_id', 'section_id', 'class', 'subject', 'subject_id', 'section'])
+        .from(`${tableNames.faculty}`)
+        .distinct()
+        .where('user_id', req.params.id)
+        .leftJoin(`${tableNames.teachingClassSubject}`, `${tableNames.teachingClassSubject}.faculty_id`, `${tableNames.faculty}.id`)
+        .leftJoin(`${tableNames.class}`, `${tableNames.class}.id`, `${tableNames.teachingClassSubject}.class_id`)
+        .leftJoin(tableNames.section, `${tableNames.section}.id`, `${tableNames.class}.section_id`)
+        .leftJoin(tableNames.subject, `${tableNames.subject}.id`, `${tableNames.teachingClassSubject}.subject_id`);
+
+    res.json(results)
+})
+
 router.get('/user_id/:id', async (req, res) => {
 
     const result =

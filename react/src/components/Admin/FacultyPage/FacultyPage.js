@@ -52,10 +52,9 @@ function AddFaculty({ open, onClose, refresh }) {
     }
 
     const formatDate = (date) => {
-        const d = new Intl.DateTimeFormat('en-GB', { timeZone: "IST" }).format(new Date(date.toString())).toString()
-        let newd = d.split("/")
-        newd[0] = (parseInt(newd[0]) + 1).toString()
-        return newd.reverse().join("-")
+        let d = new Date(date);
+        let dte = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()).toString();
+        return dte;
     }
 
     const onSubmit = () => {
@@ -127,8 +126,7 @@ function FacultyPage({ role }) {
             (val) => {
                 const data = val.data.map(
                     (faculty) => {
-                        let dob = faculty.dob.slice(0, 10).split("-").reverse().join(".");
-                        faculty['dob'] = dob;
+                        faculty['dob'] = formatDate(faculty.dob);
                         return faculty;
                     })
                 setFaculty(data);
@@ -144,7 +142,8 @@ function FacultyPage({ role }) {
     };
 
     const formatDate = (date) => {
-        const d = new Intl.DateTimeFormat('en-GB', { timeZone: "IST" }).format(new Date(date.toString())).toString()
+        let d = new Date(parseFloat(date)).toISOString();
+        d = d.split('T')[0].split('-').reverse().join("/")
         return d;
     }
 
@@ -167,6 +166,8 @@ function FacultyPage({ role }) {
             }
         )
     }
+
+    // console.log(faculty)
 
     const onAddDialogClick = () => {
         setOpenAddDialog(true);

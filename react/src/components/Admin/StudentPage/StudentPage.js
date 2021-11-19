@@ -87,8 +87,9 @@ function StudentTable({ students }) {
     const [selectedStudent, setSelectedStudent] = useState({});
 
     const formatDate = (date) => {
-        const d = new Intl.DateTimeFormat('en-GB', { timeZone: "IST" }).format(new Date(date.toString())).toString()
-        return d
+        let d = new Date(parseFloat(date)).toISOString();
+        d = d.split('T')[0].split('-').reverse().join("/")
+        return d;
     }
 
     const onDetail = (student_id) => {

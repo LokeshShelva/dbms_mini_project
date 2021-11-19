@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/:id/parents', async (req, res) => {
     const result =
         await knex.select().from(`${tableNames.student}`).where(`${tableNames.student}.id`, req.params.id)
+            .orderBy(`${tableNames.student}.id`)
             .leftJoin(`${tableNames.parent}`, function () {
                 this.on(`${tableNames.parent}.id`, '=', `${tableNames.student}.father_id`).orOn(`${tableNames.parent}.id`, '=', `${tableNames.student}.mother_id`)
             })
@@ -32,6 +33,7 @@ router.get('/:id/result', async (req, res) => {
         await knex
             .column([`${tableNames.result}.id`, 'academic_year', 'score', 'exam', 'subject', 'grade'])
             .select()
+            .orderBy(`${tableNames.result}.id`)
             .from(`${tableNames.result}`)
             .where('student_id', req.params.id)
             .leftJoin('Academic_year', `${tableNames.academicYear}.id`, `${tableNames.result}.academic_year_id`)
@@ -54,6 +56,7 @@ router.get('/:id', async (req, res) => {
     const result =
         await knex.column(req.query.small && [`${tableNames.student}.id`, 'name', 'dob', 'fee', 'scholarship', 'admission_date'])
             .select().from(`${tableNames.student}`)
+            .orderBy(`${tableNames.student}.id`)
             .where(`${tableNames.student}.id`, req.params.id)
             .leftJoin(`${tableNames.address}`, `${tableNames.address}.id`, `${tableNames.student}.address_id`);
 
@@ -67,6 +70,11 @@ router.get('/class/:class', async (req, res) => {
                 class: req.params.class,
             }).where(req.query).limit(1);
         })
+    res.json(result);
+})
+
+router.get('/class_id/:class_id', async (req, res) => {
+    const result = await knex(tableNames.student).where('class_id', req.params.class_id)
     res.json(result);
 })
 
