@@ -148,15 +148,16 @@ exports.seed = async (knex) => {
 
   const maxStudentsId = students.length;
 
-  const dates = ["1638316800000", '1638403200000', '1638489600000'];
+  const dates = ["2021-11-01", '2021-11-02', '2021-11-03'];
 
   let attendandes = []
 
   for (date of dates) {
+    let d = new Date(date)
     for (let i = 1; i <= maxStudentsId; i++) {
       attendandes.push({
         student_id: i,
-        date: date
+        date: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
       })
     }
   }
