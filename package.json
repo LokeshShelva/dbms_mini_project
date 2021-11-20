@@ -1,0 +1,44 @@
+{
+  "name": "dbms_mini_project",
+  "version": "1.0.0",
+  "description": "- Install Docker \r     Link for the installation guide: [Link](https://docs.docker.com/desktop/windows/install/)",
+  "main": "app.js",
+  "scripts": {
+    "client-dev": "webpack --watch --mode production",
+    "build": "webpack --config webpack.prod.js",
+    "server": "nodemon src/server/app.js",
+    "start": "cd api && node src/server/app.js",
+    "migrate": "npx knex migrate:latest",
+    "rollback": "npx knex migrate:rollback",
+    "seed": "npx knex seed:run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LokeshShelva/dbms_mini_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LokeshShelva/dbms_mini_project/issues"
+  },
+  "homepage": "https://github.com/LokeshShelva/dbms_mini_project#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.11",
+    "morgan": "^1.10.0",
+    "objection": "^2.2.17",
+    "pg": "^8.7.1",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "csv-parse": "^4.16.3",
+    "nodemon": "^2.0.14"
+  }
+}
