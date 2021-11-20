@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "client-dev": "webpack --watch --mode production",
-    "build": "webpack --config webpack.prod.js",
     "server": "nodemon src/server/app.js",
     "start": "cd api && node src/server/app.js",
     "migrate": "npx knex migrate:latest",
