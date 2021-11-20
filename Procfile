@@ -1,1 +1,1 @@
-web: cd api && ../bin/www npm start
+web: ./bin/www npm start
