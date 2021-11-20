@@ -31,6 +31,103 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     // },
 }));
 
+function AddAttendanceTable({ attendance, students, date, setIsEditing, getAttendance }) {
+
+    const [addedAtttendance, setAddedAttendance] = useState([]);
+
+    useEffect(() => {
+        if (students) {
+            let tmp = []
+            students.forEach((student) => {
+                tmp.push(student.id)
+            })
+            setAddedAttendance(tmp)
+        }
+    }, [])
+
+    const addAttendance = (id) => {
+        let idx = addedAtttendance.indexOf(id)
+        if (idx > -1) {
+            let prev = []
+            addedAtttendance.forEach((val) => {
+                if (val != id) {
+                    prev.push(val)
+                }
+            })
+            setAddedAttendance(prev)
+        } else {
+            let prev = [];
+            addedAtttendance.forEach((val) => prev.push(val))
+            prev.push(id)
+            setAddedAttendance(prev)
+        }
+    }
+
+    const submit = () => {
+        let final = []
+        addedAtttendance.forEach((val) => {
+            let d = new Date(date)
+            final.push({
+                date: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()).toString(),
+                student_id: val
+            })
+        })
+        axios.post('/api/attendance/attendance', final).then((val) => {
+            setIsEditing(false)
+            getAttendance()
+        })
+    }
+
+    return (
+        attendance && students ?
+            <div className="table-cont box-shadow" style={{ display: "flex", flexDirection: "column" }}>
+                <div className="table-cont-inner" style={{ marginBottom: "16px" }}>
+                    <Table className="box-shadow">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>No</StyledTableCell>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell>Attendance</StyledTableCell>
+                                <StyledTableCell></StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+
+                            {students ?
+                                students.map(
+                                    (val, index) =>
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{index + 1}</StyledTableCell>
+                                            <StyledTableCell>{val.name}</StyledTableCell>
+                                            <StyledTableCell>
+                                                {
+                                                    addedAtttendance && addedAtttendance.indexOf(val.id) > -1 ? "P" : "A"
+                                                }
+                                            </StyledTableCell>
+                                            <StyledTableCell>
+                                                <Button variant="outlined" onClick={() => addAttendance(val.id)}>
+                                                    {addedAtttendance && addedAtttendance.indexOf(val.id) > -1 ? "Add Absent" : "Add Present"}
+                                                </Button>
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                )
+                                :
+                                <> </>
+                            }
+                        </TableBody>
+                    </Table>
+                </div>
+                <Button onClick={submit}>Save</Button>
+            </div> :
+            <div className="empty-state-container">
+                <Typography variant="h5">
+                    Select a Class and Section
+                </Typography>
+            </div>
+    )
+}
+
+
 function AttendanceTable({ attendance, students }) {
 
     return (
@@ -46,7 +143,7 @@ function AttendanceTable({ attendance, students }) {
                     </TableHead>
                     <TableBody>
 
-                        {students && students.length !== 0 ?
+                        {students ?
                             students.map(
                                 (val, index) =>
                                     <StyledTableRow key={index}>
@@ -58,6 +155,7 @@ function AttendanceTable({ attendance, students }) {
                                             }
                                             return false
                                         }) ? 'P' : "A"}</StyledTableCell>
+
                                     </StyledTableRow>
                             )
                             :
@@ -75,7 +173,7 @@ function AttendanceTable({ attendance, students }) {
     )
 }
 
-export default function AttendancePage() {
+export default function AttendancePage({ role }) {
     const [classes, setClasses] = useState([])
     const [sections, setSections] = useState([])
     const [selectedClass, setSelectedClass] = useState(null);
@@ -83,6 +181,8 @@ export default function AttendancePage() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [attendance, SetAttendance] = useState([]);
     const [students, setStudents] = useState([]);
+    const [isDiabled, setIsDisabled] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         axios.get('/api/general/class').then((val) => setClasses(val.data))
@@ -92,31 +192,20 @@ export default function AttendancePage() {
         axios.get(`/api/general/section/${cls}`).then((val) => setSections(val.data))
     }
 
-    // useEffect(() => {
-    //     if (selectedClass && selectedSection && selectedDate) {
-    //         let d = new Date(selectedDate).toISOString()
-    //             .split('T')[0]
-    //             .split('-')
-    //             .reverse()
-    //             .join('/');
-    //         axios.get(`/api/student/class/${selectedClass}?section_id=${selectedSection.section_id}`).then((res) => {
-    //             setStudents(res.data);
-    //         })
-    //         axios.get(`/api/attendance/${selectedClass}/section/${selectedSection.section_id}?date=${d}`).then((val) => SetAttendance(val.data))
-    //     }
-    // }, [selectedDate])
-
-    const getAttendance = () => {
+    useEffect(() => {
         if (selectedClass && selectedSection && selectedDate) {
-            let d = new Date(selectedDate).toISOString()
-                .split('T')[0]
-                .split('-')
-                .reverse()
-                .join('/');
+            setIsDisabled(false);
+        }
+    }, [selectedClass, selectedDate, selectedSection])
+
+    const getAttendance = (editing) => {
+        if (selectedClass && selectedSection && selectedDate) {
+            let d = new Date(selectedDate);
+            axios.get(`/api/attendance/${selectedClass}/section/${selectedSection.section_id}?date=${Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())}`).then((val) => SetAttendance(val.data))
             axios.get(`/api/student/class/${selectedClass}?section_id=${selectedSection.section_id}`).then((res) => {
                 setStudents(res.data);
+                setIsEditing(editing);
             })
-            axios.get(`/api/attendance/${selectedClass}/section/${selectedSection.section_id}?date=${d}`).then((val) => SetAttendance(val.data))
         }
     }
 
@@ -162,10 +251,13 @@ export default function AttendancePage() {
                     </LocalizationProvider>
                 </div>
                 <div className="student-admin-btn">
-                    <Button variant="outlined" onClick={getAttendance}>Get Attendance</Button>
+                    <Button variant="outlined" onClick={() => getAttendance(false)}>Get Attendance</Button>
                 </div>
+                {role && role != "admin" ? <div className="student-admin-btn">
+                    <Button variant="outlined" disabled={isDiabled} onClick={() => getAttendance(true)}>Add Attendance</Button>
+                </div> : <> </>}
             </div>
-            <AttendanceTable students={students} attendance={attendance}></AttendanceTable>
+            {isEditing ? <AddAttendanceTable students={students} attendance={attendance} date={selectedDate} setIsEditing={setIsEditing} getAttendance={getAttendance}></AddAttendanceTable> : <AttendanceTable students={students} attendance={attendance}></AttendanceTable>}
         </div>
     )
 }
