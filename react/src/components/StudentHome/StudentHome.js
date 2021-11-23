@@ -5,6 +5,7 @@ import { tableCellClasses } from "@mui/material";
 import { Table, TableBody, TableCell, TableHead, TableRow, styled, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import "./StudentHome.css";
 import { Box } from "@mui/system";
+import {useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -91,6 +92,8 @@ export default function StudentHome({ user }) {
   const [academicYears, setAcademicYears] = useState([]);
   const [results, setResults] = useState([]);
 
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     axios.get('api/general/exam').then((val) => setExams(val.data))
@@ -100,6 +103,11 @@ export default function StudentHome({ user }) {
 const toSentanceCase = (string) => {
   return string[0].toUpperCase() + string.substring(1, string.length);
 }  
+
+const onLogout = () => {
+  localStorage.removeItem('token');
+  navigate('/login');
+}
 
 const fetchStudents = () => {
       axios.get(`api/student/${id}/result?${selectedYear != null ? `academic_year_id=${selectedYear.id}` : ''}${selectedExam != null ? `&exam_id=${selectedExam.id}` : ''}`).then(
@@ -279,7 +287,7 @@ const fetchStudents = () => {
               Contact:<span className="answer">{contact}</span>
             </Typography>
             </div>
-          <Button variant="contained">LOGOUT</Button>
+          <Button variant="contained" onClick={onLogout}>LOGOUT</Button>
         </div>
         <div className="contentRight">
           <div className="dropSelect">
