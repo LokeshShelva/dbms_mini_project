@@ -192,6 +192,8 @@ export default function AttendancePage({ role }) {
         axios.get(`/api/general/section/${cls}`).then((val) => setSections(val.data))
     }
 
+    console.log(classes)
+
     useEffect(() => {
         if (selectedClass && selectedSection && selectedDate) {
             setIsDisabled(false);
