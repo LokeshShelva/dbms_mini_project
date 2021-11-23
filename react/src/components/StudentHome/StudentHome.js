@@ -119,174 +119,172 @@ export default function StudentHome({ user }) {
           }
         ))
       }
-    ))
-  }
     )
-}
+  }
 
 
-// const [scoreP, setScoreP] = useState();
-// const [scoreC, setScoreC] = useState();
-// const [scoreM, setScoreM] = useState();
-// const [scoreB, setScoreB] = useState();
-// const [scoreE, setScoreE] = useState();
+  // const [scoreP, setScoreP] = useState();
+  // const [scoreC, setScoreC] = useState();
+  // const [scoreM, setScoreM] = useState();
+  // const [scoreB, setScoreB] = useState();
+  // const [scoreE, setScoreE] = useState();
 
-// const [gradeP, setGradeP] = useState("");
-// const [gradeC, setGradeC] = useState("");
-// const [gradeM, setGradeM] = useState("");
-// const [gradeB, setGradeB] = useState("");
-// const [gradeE, setGradeE] = useState("");
-
-
-useEffect(
-  () => {
-    if (user !== undefined) {
-      axios.get(`/api/student/user_id/${user.id}`).then((val) => {
-        setName(val.data[0].name);
-        setDob(formatDate(val.data[0].dob));
-        setBloodgroup(val.data[0].blood_group);
-        setId(val.data[0].id);
-        setNo(val.data[0].house_no);
-        setStreet(val.data[0].street_name);
-        setCity(val.data[0].city);
-        setState(val.data[0].state);
-        // axios.get(`/api/student/${id}/parents`).then((res) => {
-        //   setParent(res.data[0].name);
-        //   setContact(res.data[0].phone);
-        // })
-      })
-    }
-  }, [user])
-
-// useEffect(
-//   () => {
-//       if(user !== undefined){
-//         axios.get(`/api/student/user_id/${user.id}/result?`).then((val) => {
-//             val.data.map((datas)=>{
-//               if(datas.exam==="First-Quarterly"){
-//                   let subjectName = datas.subject;
-//                   switch(subjectName) { 
-//                     case "physics":
-//                       setScoreP(datas.score);
-//                       setGradeP(datas.grade);
-//                       break;
-//                     case "chemistry":
-//                       setScoreC(datas.score);
-//                       setGradeC(datas.grade);
-//                       break;
-//                     case "maths":
-//                       setScoreM(datas.score);
-//                       setGradeM(datas.grade);
-//                       break;
-//                     case "biology":
-//                       setScoreB(datas.score);
-//                       setGradeB(datas.grade);
-//                       break;
-//                     case "english":
-//                       setScoreE(datas.score);
-//                       setGradeE(datas.grade);
-//                       break;
-//                     default:
-//                       break;
-//                   }                        
-//               }
-//             })
-//           })
-//     }
-//   }, [user])
+  // const [gradeP, setGradeP] = useState("");
+  // const [gradeC, setGradeC] = useState("");
+  // const [gradeM, setGradeM] = useState("");
+  // const [gradeB, setGradeB] = useState("");
+  // const [gradeE, setGradeE] = useState("");
 
 
-const formatDate = (date) => {
-  const d = new Date(parseFloat(date))
-  return `${d.getUTCDate()}/${d.getUTCMonth()}/${d.getUTCFullYear()}`
-}
+  useEffect(
+    () => {
+      if (user !== undefined) {
+        axios.get(`/api/student/user_id/${user.id}`).then((val) => {
+          setName(val.data[0].name);
+          setDob(formatDate(val.data[0].dob));
+          setBloodgroup(val.data[0].blood_group);
+          setId(val.data[0].id);
+          setNo(val.data[0].house_no);
+          setStreet(val.data[0].street_name);
+          setCity(val.data[0].city);
+          setState(val.data[0].state);
+          axios.get(`/api/student/${id}/parents`).then((res) => {
+            setParent(res.data[0].name);
+            setContact(res.data[0].phone);
+          })
+        })
+      }
+    }, [user])
 
-//   const StyledTableCell = styled(TableCell)(({ theme }) => ({
-//     [`&.${tableCellClasses.head}`]: {
-//         backgroundColor: "#E0EBFF",
-//         color: "#256EFF",
-//         fontSize: 16,
-//     },
-//     [`&.${tableCellClasses.body}`]: {
-//         fontSize: 16,
-//     },
-// }));
+  // useEffect(
+  //   () => {
+  //       if(user !== undefined){
+  //         axios.get(`/api/student/user_id/${user.id}/result?`).then((val) => {
+  //             val.data.map((datas)=>{
+  //               if(datas.exam==="First-Quarterly"){
+  //                   let subjectName = datas.subject;
+  //                   switch(subjectName) { 
+  //                     case "physics":
+  //                       setScoreP(datas.score);
+  //                       setGradeP(datas.grade);
+  //                       break;
+  //                     case "chemistry":
+  //                       setScoreC(datas.score);
+  //                       setGradeC(datas.grade);
+  //                       break;
+  //                     case "maths":
+  //                       setScoreM(datas.score);
+  //                       setGradeM(datas.grade);
+  //                       break;
+  //                     case "biology":
+  //                       setScoreB(datas.score);
+  //                       setGradeB(datas.grade);
+  //                       break;
+  //                     case "english":
+  //                       setScoreE(datas.score);
+  //                       setGradeE(datas.grade);
+  //                       break;
+  //                     default:
+  //                       break;
+  //                   }                        
+  //               }
+  //             })
+  //           })
+  //     }
+  //   }, [user])
 
-// const StyledTableRow = styled(TableRow)(({ theme }) => ({
-//     '&:nth-of-type(odd)': {
-//         backgroundColor: "rgba(0,0,0,0.04)",
-//     },
-//     '&:nth-of-type(even)': {
-//         backgroundColor: "#ffffff",
-//     },
-// }));
 
-// function createData(no, subject, score, grade) {
-//   return { no, subject, score, grade};
-// }
+  const formatDate = (date) => {
+    const d = new Date(parseFloat(date))
+    return `${d.getUTCDate()}/${d.getUTCMonth()}/${d.getUTCFullYear()}`
+  }
 
-// const rows = [
-//   createData(1,'Physics',scoreP,gradeP),
-//   createData(2,'Chemistry',scoreC,gradeC),
-//   createData(3,'Maths',scoreM,gradeM),
-//   createData(4,'Biology',scoreB,gradeB),
-//   createData(5,'English',scoreE,gradeE),
-// ];
+  //   const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  //     [`&.${tableCellClasses.head}`]: {
+  //         backgroundColor: "#E0EBFF",
+  //         color: "#256EFF",
+  //         fontSize: 16,
+  //     },
+  //     [`&.${tableCellClasses.body}`]: {
+  //         fontSize: 16,
+  //     },
+  // }));
 
-return (
-  <div>
-    <div className="titleContainer">
-      <Typography variant="h3" className="title" color="primary">
-        STUDENT DASHBOARD
-      </Typography>
-    </div>
-    <div class="content">
-      <div class="contentLeft">
-        <div className="studentCard">
-          <Typography variant="h6" color="primary" className="name">
-            {name}
-          </Typography>
-        </div>
-        <div className="studentDetail">
-          <Typography
-            variant="subtitle2"
-            color="primary"
-            className="question"
-          >
-            DOB:<span className="answer">{dob}</span>
-          </Typography>
-          {/* <Typography
+  // const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  //     '&:nth-of-type(odd)': {
+  //         backgroundColor: "rgba(0,0,0,0.04)",
+  //     },
+  //     '&:nth-of-type(even)': {
+  //         backgroundColor: "#ffffff",
+  //     },
+  // }));
+
+  // function createData(no, subject, score, grade) {
+  //   return { no, subject, score, grade};
+  // }
+
+  // const rows = [
+  //   createData(1,'Physics',scoreP,gradeP),
+  //   createData(2,'Chemistry',scoreC,gradeC),
+  //   createData(3,'Maths',scoreM,gradeM),
+  //   createData(4,'Biology',scoreB,gradeB),
+  //   createData(5,'English',scoreE,gradeE),
+  // ];
+
+  return (
+    <div>
+      <div className="titleContainer">
+        <Typography variant="h3" className="title" color="primary">
+          STUDENT DASHBOARD
+        </Typography>
+      </div>
+      <div class="content">
+        <div class="contentLeft">
+          <div className="studentCard">
+            <Typography variant="h6" color="primary" className="name">
+              {name}
+            </Typography>
+          </div>
+          <div className="studentDetail">
+            <Typography
+              variant="subtitle2"
+              color="primary"
+              className="question"
+            >
+              DOB:<span className="answer">{dob}</span>
+            </Typography>
+            <Typography
               variant="subtitle2"
               color="primary"
               className="question"
             >
               Parent's Name:<span className="answer">{parent}</span>
-            </Typography> */}
-          <Typography
-            variant="subtitle2"
-            color="primary"
-            className="question"
-          >
-            Address:
-            <span className="answer">
-              {no}, {street}, {city}, {state}
-            </span>
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            color="primary"
-            className="question"
-          >
-            Blood Group:<span className="answer">{bloodgroup}</span>
-          </Typography>
-          {/* <Typography
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              color="primary"
+              className="question"
+            >
+              Address:
+              <span className="answer">
+                {no}, {street}, {city}, {state}
+              </span>
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              color="primary"
+              className="question"
+            >
+              Blood Group:<span className="answer">{bloodgroup}</span>
+            </Typography>
+            <Typography
               variant="subtitle2"
               color="primary"
               className="question"
             >
               Contact:<span className="answer">{contact}</span>
             </Typography>
-            </div>
+          </div>
           <Button variant="contained" onClick={onLogout}>LOGOUT</Button>
         </div>
         <div className="contentRight">
@@ -303,33 +301,33 @@ return (
                                         <MenuItem value={2020}>2020</MenuItem>
                                         <MenuItem value={2021}>2021</MenuItem>
                                     ) */}
-        </Select>
-      </FormControl>
-    </Box>
-    <Box sx={{ width: "35%" }}>
-      <FormControl style={{ "width": "50%" }}>
-        <InputLabel>Exam</InputLabel>
-        <Select label="exam" value={selectedExam} onChange={(e) => setSelectedExam(e.target.value)}>
-          {exams.map(
-            (exam) => {
-              return (
-                <MenuItem value={exam} key={exam.id}>{exam.exam}</MenuItem>
-              )
-            }
-          )}
-          {/* return (
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ width: "35%" }}>
+              <FormControl style={{ "width": "50%" }}>
+                <InputLabel>Exam</InputLabel>
+                <Select label="exam" value={selectedExam} onChange={(e) => setSelectedExam(e.target.value)}>
+                  {exams.map(
+                    (exam) => {
+                      return (
+                        <MenuItem value={exam} key={exam.id}>{exam.exam}</MenuItem>
+                      )
+                    }
+                  )}
+                  {/* return (
                                         <MenuItem value="First Quaterly">First Quaterly</MenuItem>
                                         <MenuItem value="Mid Term">Mid-Term</MenuItem>
                                         <MenuItem value="Second Quaterly">Second Quaterly</MenuItem>
                                         <MenuItem value="End Term">End-Term</MenuItem>
                                     ) */}
-        </Select>
-      </FormControl>
-    </Box>
-    <div className="student-admin-btn">
-      <Button className="resultButton" variant="outlined" onClick={fetchStudents}>Get Result</Button>
-    </div>
-  </div>
+                </Select>
+              </FormControl>
+            </Box>
+            <div className="student-admin-btn">
+              <Button className="resultButton" variant="outlined" onClick={fetchStudents}>Get Result</Button>
+            </div>
+          </div>
           {/* <div className="student-table">
             <TableContainer className="student-tableContainer"  component={Paper}>
                 <Table sx={{width: 800}} aria-label="customized table">
@@ -356,9 +354,9 @@ return (
                 </Table>
             </TableContainer>
             </div> */}
-<ResultTable results={results}></ResultTable>
-        </div >
-      </div >
-    </div >
+          <ResultTable results={results}></ResultTable>
+        </div>
+      </div>
+    </div>
   );
 }
