@@ -31,6 +31,11 @@ exports.seed = async (knex) => {
       email: "teacher@some.com",
       password: hashed,
       role: 'teacher'
+    },
+    {
+      email: "student1@some.com",
+      password: hashed,
+      role: 'student'
     }
   ]);
 
@@ -144,20 +149,21 @@ exports.seed = async (knex) => {
     students.push(val);
   })
 
+  students[0]['user_id'] = 4;
+
   await knex(tableNames.student).insert(students);
 
   const maxStudentsId = students.length;
 
-  const dates = ["2021-11-01", '2021-11-02', '2021-11-03'];
+  const dates = ['2021-11-01', '2021-11-02', '2021-11-03'];
 
   let attendandes = []
 
   for (date of dates) {
-    let d = new Date(date)
     for (let i = 1; i <= maxStudentsId; i++) {
       attendandes.push({
         student_id: i,
-        date: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+        date: new Date(date).toISOString()
       })
     }
   }
@@ -229,6 +235,7 @@ exports.seed = async (knex) => {
       }
     }
   }
+
 
   await knex(tableNames.result).insert(results);
 };

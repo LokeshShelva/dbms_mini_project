@@ -1,3 +1,7 @@
+body{
+    width: auto;
+}
+
 .title{
     padding-top: 3%;
     font-family: Roboto;
@@ -10,6 +14,7 @@
     .titleContainer{
         display: flex;
         justify-content: center;
+        margin-bottom: 30px;
     }
     
     .studentCard{
@@ -59,6 +64,7 @@
     font-size: 16px;
     line-height: 24px;
     /* or 150% */
+    padding-bottom: 1em;
     
     letter-spacing: 0.5px;
     
@@ -93,3 +99,90 @@
     flex-grow: 0;
     margin: 0px 8px;
     }
+
+.Button{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 6px 6px 8px;
+        background: #0052F5;
+        border-radius: 4px;
+}
+
+.Dropdown{
+    display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 6px 6px 6px 8px;
+
+position: absolute;
+width: 238px;
+height: 44px;
+left: 505px;
+top: 271px;
+
+/* 01. Primary/500 */
+
+border: 1px solid #0052F5;
+border-radius: 4px;
+}
+
+
+.content{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-column-gap: 0.5em;
+}
+
+.contentLeft{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    width: 80%;
+    padding-left: 5%;
+}
+
+.studentDetail{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 32px 38px;
+background: #FFFFFF;
+/* drop shadow */
+box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+border-radius: 4px;
+}
+
+.contentRight{
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+    /* width: auto; */
+    /* height: auto; */
+}
+
+.tableContainer{
+
+background: #FFFFFF;
+/* drop shadow */
+
+border-radius: 4px;
+}
+
+.student-table{
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+
+.dropSelect{
+    display: flex;
+    align-content: space-around;
+}
+
+
+.student-admin-btn{
+    padding-top: 10px;
+}
