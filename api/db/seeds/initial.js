@@ -18,22 +18,22 @@ exports.seed = async (knex) => {
 
   await knex(tableNames.user).insert([
     {
-      email: "lokesh@some.com",
+      email: "admin@nitpy.com",
       password: hashed,
       role: 'admin'
     },
     {
-      email: "student@some.com",
+      email: "student@nitpy.com",
       password: hashed,
       role: 'student'
     },
     {
-      email: "teacher@some.com",
+      email: "teacher@nitpy.com",
       password: hashed,
       role: 'teacher'
     },
     {
-      email: "student1@some.com",
+      email: "student1@nitpy.com",
       password: hashed,
       role: 'student'
     }
@@ -95,6 +95,9 @@ exports.seed = async (knex) => {
     }
   )
 
+  faculty[0]['user_id'] = 3
+  faculty[1]['user_id'] = 1
+
   await knex(tableNames.faculty).insert(faculty);
 
   await knex(tableNames.class).insert([
@@ -149,7 +152,7 @@ exports.seed = async (knex) => {
     students.push(val);
   })
 
-  students[0]['user_id'] = 4;
+  students[0]['user_id'] = 2;
 
   await knex(tableNames.student).insert(students);
 
