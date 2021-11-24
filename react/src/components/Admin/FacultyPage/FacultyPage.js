@@ -65,6 +65,7 @@ function AddFaculty({ open, onClose, refresh }) {
                 onClose();
             }
         })
+        // console.log(input)
     }
 
     return (
@@ -215,7 +216,7 @@ function FacultyPage({ role }) {
                         </div>
                         <div className="faculty-btn-container">
                             <FacultyDetailDialog open={open} onClose={handleClose} faculty={selectedFaculty}></FacultyDetailDialog>
-                            <Button className="faculty-btn" variant="contained" onClick={onAddDialogClick}>add faculty</Button>
+                            {/* <Button className="faculty-btn" variant="contained" onClick={onAddDialogClick}>add faculty</Button> */}
                             <AddFaculty open={openAddDialog} onClose={handleClose} refresh={refresh}></AddFaculty>
                         </div>
                     </> :

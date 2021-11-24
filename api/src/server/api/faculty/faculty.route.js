@@ -59,8 +59,8 @@ router.post('/', async (req, res) => {
     const { house_no, street_name, city, state, ...faculty } = req.body;
     const address = { house_no, street_name, city, state };
     try {
-        const result = await AddressModel.query().insert(address);
-        await FacultyModel.query().insert({ ...faculty, "address_id": result.id });
+        const result = await knex(tableNames.address).insert(address).returning('id');
+        await knex(tableNames.faculty).insert({ ...faculty, "address_id": result[0] });
         res.status(200);
         res.json("Successful");
     } catch (e) {

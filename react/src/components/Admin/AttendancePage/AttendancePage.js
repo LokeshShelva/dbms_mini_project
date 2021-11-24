@@ -75,6 +75,97 @@ function AttendanceTable({ attendance, students }) {
     )
 }
 
+function AddAttendanceTable({ students, date, reload }) {
+    const [newAttendance, setNewAttendance] = useState([]);
+
+    useEffect(() => {
+        if (students) {
+            let currAttendance = []
+            students.forEach((val) => {
+                currAttendance.push(val.id)
+            })
+            setNewAttendance(currAttendance)
+        }
+    }, [])
+
+    const setAttendance = (id) => {
+        if (newAttendance.includes(id)) {
+            let tmp = []
+            newAttendance.forEach((val) => {
+                if (val != id) {
+                    tmp.push(val)
+                }
+            })
+            setNewAttendance(tmp)
+        } else {
+            let tmp = []
+            newAttendance.forEach((val) => tmp.push(val))
+            tmp.push(id)
+            setNewAttendance(tmp)
+        }
+    }
+
+    const submit = () => {
+        const attendance = []
+        const d = new Date(date);
+        newAttendance.forEach((val) => {
+            attendance.push({
+                student_id: val,
+                date: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+            })
+        })
+
+        axios.post('/api/attendance/attendance', attendance).then((val) => {
+            reload()
+        })
+    }
+
+    return (
+        newAttendance && newAttendance.length !== 0 && students && students.length != 0 ? <div className="table-cont box-shadow">
+            <div className="table-cont-inner">
+                <Table className="box-shadow">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>No</StyledTableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell>Attendance</StyledTableCell>
+                            <StyledTableCell></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                        {students && students.length !== 0 ?
+                            students.map(
+                                (val, index) =>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{index + 1}</StyledTableCell>
+                                        <StyledTableCell>{val.name}</StyledTableCell>
+                                        <StyledTableCell>{newAttendance.includes(val.id) ? 'P' : "A"}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <Button variant="outlined" onClick={() => setAttendance(val.id)}>
+                                                {
+                                                    newAttendance.includes(val.id) ? "Set Absent" : "Set Present"
+                                                }
+                                            </Button>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                            )
+                            :
+                            <> </>
+                        }
+                    </TableBody>
+                </Table>
+            </div>
+            <Button onClick={submit}>Save</Button>
+        </div> :
+            <div className="empty-state-container">
+                <Typography variant="h5">
+                    Select a Class and Section
+                </Typography>
+            </div>
+    )
+}
+
 export default function AttendancePage() {
     const [classes, setClasses] = useState([])
     const [sections, setSections] = useState([])
@@ -83,6 +174,7 @@ export default function AttendancePage() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [attendance, SetAttendance] = useState([]);
     const [students, setStudents] = useState([]);
+    const [editAttendace, setEditAttendance] = useState(false);
 
     useEffect(() => {
         axios.get('/api/general/class').then((val) => setClasses(val.data))
@@ -108,16 +200,26 @@ export default function AttendancePage() {
 
     const getAttendance = () => {
         if (selectedClass && selectedSection && selectedDate) {
-            let d = new Date(selectedDate).toISOString()
-                .split('T')[0]
-                .split('-')
-                .reverse()
-                .join('/');
+            console.log(selectedDate.toUTCString())
+            let d = new Date(selectedDate.toUTCString());
             axios.get(`/api/student/class/${selectedClass}?section_id=${selectedSection.section_id}`).then((res) => {
                 setStudents(res.data);
             })
-            axios.get(`/api/attendance/${selectedClass}/section/${selectedSection.section_id}?date=${d}`).then((val) => SetAttendance(val.data))
+            axios.get(`/api/attendance/${selectedClass}/section/${selectedSection.section_id}?date=${Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())}`).then((val) => SetAttendance(val.data))
         }
+    }
+
+    const openEditAttendance = () => {
+        axios.get(`/api/student/class/${selectedClass}?section_id=${selectedSection.section_id}`).then((res) => {
+            setStudents(res.data);
+            setEditAttendance(true)
+        })
+    }
+
+    const reload = () => {
+        setEditAttendance(false)
+        getAttendance()
+
     }
 
     return (
@@ -164,8 +266,13 @@ export default function AttendancePage() {
                 <div className="student-admin-btn">
                     <Button variant="outlined" onClick={getAttendance}>Get Attendance</Button>
                 </div>
+                <div className="student-admin-btn">
+                    <Button variant="outlined" onClick={openEditAttendance} disabled={!(selectedClass && selectedDate && selectedSection)}>Add Attendance</Button>
+                </div>
             </div>
-            <AttendanceTable students={students} attendance={attendance}></AttendanceTable>
+            {
+                editAttendace ? <AddAttendanceTable students={students} date={selectedDate} reload={reload}></AddAttendanceTable> : <AttendanceTable students={students} attendance={attendance}></AttendanceTable>
+            }
         </div>
     )
 }

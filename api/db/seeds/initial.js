@@ -164,9 +164,10 @@ exports.seed = async (knex) => {
 
   for (date of dates) {
     for (let i = 1; i <= maxStudentsId; i++) {
+      let d = new Date(date)
       attendandes.push({
         student_id: i,
-        date: new Date(date).toISOString()
+        date: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()).toString()
       })
     }
   }
@@ -225,6 +226,9 @@ exports.seed = async (knex) => {
     for (let exam = 1; exam <= 4; exam++) {
       for (let std = 1; std <= maxStudentsId; std++) {
         for (let sub = 1; sub <= maxSubjectId; sub++) {
+          if (year == 2 && exam == 4) {
+            continue
+          }
           let src = Math.floor(Math.random() * 76 + 25);
           results.push({
             student_id: std,

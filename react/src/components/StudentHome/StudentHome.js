@@ -232,7 +232,7 @@ export default function StudentHome({ user }) {
   // ];
 
   return (
-    <div>
+    <div class="student-login-top-container">
       <div className="titleContainer">
         <Typography variant="h3" className="title" color="primary">
           STUDENT DASHBOARD
@@ -253,13 +253,13 @@ export default function StudentHome({ user }) {
             >
               DOB:<span className="answer">{dob}</span>
             </Typography>
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               color="primary"
               className="question"
             >
               Parent's Name:<span className="answer">{parent}</span>
-            </Typography>
+            </Typography> */}
             <Typography
               variant="subtitle2"
               color="primary"
@@ -277,13 +277,13 @@ export default function StudentHome({ user }) {
             >
               Blood Group:<span className="answer">{bloodgroup}</span>
             </Typography>
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               color="primary"
               className="question"
             >
               Contact:<span className="answer">{contact}</span>
-            </Typography>
+            </Typography> */}
           </div>
           <Button variant="contained" onClick={onLogout}>LOGOUT</Button>
         </div>
