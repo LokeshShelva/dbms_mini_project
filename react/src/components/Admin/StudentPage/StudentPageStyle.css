@@ -39,8 +39,17 @@
 
 .table-cont{
     display: flex;
+    flex-direction: column;
     width: 100%;
     max-height: 70vh;
+}
+
+.btn-cont {
+    min-height: 50px;
+    display: grid;
+    /* align-items: center;
+    justify-content: center; */
+    place-items: center;
 }
 
 .table-cont-inner{

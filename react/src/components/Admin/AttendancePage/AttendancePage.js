@@ -156,7 +156,9 @@ function AddAttendanceTable({ students, date, reload }) {
                     </TableBody>
                 </Table>
             </div>
-            <Button onClick={submit}>Save</Button>
+            <div className="btn-cont">
+                <Button onClick={submit}>Save</Button>
+            </div>
         </div> :
             <div className="empty-state-container">
                 <Typography variant="h5">
@@ -166,7 +168,7 @@ function AddAttendanceTable({ students, date, reload }) {
     )
 }
 
-export default function AttendancePage() {
+export default function AttendancePage({ role }) {
     const [classes, setClasses] = useState([])
     const [sections, setSections] = useState([])
     const [selectedClass, setSelectedClass] = useState(null);
@@ -266,9 +268,9 @@ export default function AttendancePage() {
                 <div className="student-admin-btn">
                     <Button variant="outlined" onClick={getAttendance}>Get Attendance</Button>
                 </div>
-                <div className="student-admin-btn">
+                {role != null && role != "admin" && <div className="student-admin-btn">
                     <Button variant="outlined" onClick={openEditAttendance} disabled={!(selectedClass && selectedDate && selectedSection)}>Add Attendance</Button>
-                </div>
+                </div>}
             </div>
             {
                 editAttendace ? <AddAttendanceTable students={students} date={selectedDate} reload={reload}></AddAttendanceTable> : <AttendanceTable students={students} attendance={attendance}></AttendanceTable>

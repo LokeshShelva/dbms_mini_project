@@ -166,7 +166,9 @@ function AddResultTable({ class_id, subject, selectedExam, selectedYear, finishe
                         </TableBody>
                     </Table>
                 </div>
-                <Button onClick={onSubmit}>Save</Button>
+                <div className="btn-cont">
+                    <Button onClick={onSubmit}>Save</Button>
+                </div>
             </div>
             :
             <div className="empty-state-container">
